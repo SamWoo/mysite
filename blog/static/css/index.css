@@ -437,7 +437,7 @@ h3.blogtitle:hover a {
 .paihang ul li {
     border-bottom: solid 1px #EAEAEA;
     font-size: 14px;
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
     padding: 0 0 10px 0;
     overflow: hidden;
 }
@@ -659,7 +659,7 @@ h3.blogtitle:hover a {
 }
 
 .tags a {
-    background: #F4650E;
+    background: #666666;
     padding: 3px 8px;
     margin: 0 5px 5px 0;
     color: #fff;
@@ -668,7 +668,7 @@ h3.blogtitle:hover a {
 }
 
 .tags {
-    margin: 10px 0;
+    margin: 8px 0;
 }
 
 .news_infos {

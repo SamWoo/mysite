@@ -36,6 +36,8 @@ urlpatterns = [
     url(r'^tag/(?P<pk>[0-9]+)/$', views.tag, name='tag'),
     # 关于我
     url(r'^about/$', views.about, name='about'),
+    # search
+    url(r'^search/$', views.search, name='search'),
     # 添加静态文件的访问处理函数
     url(r'^static/(?P<path>.*)/$', serve, {'document_root': STATIC_ROOT}),
 ]

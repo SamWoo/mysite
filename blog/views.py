@@ -1,5 +1,7 @@
 # -*-coding:utf-8-*-
 import markdown
+from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from pure_pagination import PageNotAnInteger, Paginator, EmptyPage
 
@@ -26,7 +28,9 @@ def index(request):
     # print(blog_list)
     print(blogs)
 
-    return render(request, 'index.html', context={'blog_list': blogs})
+    context = {'blog_list': blogs, }
+
+    return render(request, 'index.html', context=context)
 
 
 def detail(request, pk):
@@ -47,9 +51,11 @@ def detail(request, pk):
     blog.increase_views()  # 点击率+1
     previous_blog = blog.get_previous()  # previous blog
     next_blog = blog.get_next()  # next blog
-    return render(request, 'detail.html', context={'blog': blog,
-                                                        'previous_blog': previous_blog,
-                                                        'next_blog': next_blog})
+
+    context = {'blog': blog,
+               'previous_blog': previous_blog,
+               'next_blog': next_blog}
+    return render(request, 'detail.html', context=context)
 
 
 def archives(request, year, month):
@@ -133,3 +139,30 @@ def about(request):
     :return:
     '''
     return render(request, 'about.html')
+
+
+def search(request):
+    '''
+    搜索页面
+    :param request:
+    :return:
+    '''
+    if 'keywords' in request.GET and request.GET['keywords']:
+        keywords = request.GET['keywords']
+        blog_list = Blog.objects.filter(Q(title__icontains=keywords) | Q(content__icontains=keywords))
+
+        paginator = Paginator(blog_list, 9, request=request)  # 5为每页展示的博客数目
+        page = request.GET.get('page', 1)
+        try:
+            blogs = paginator.page(page)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
+
+        context = {'blog_list': blogs,
+                   'keywords': keywords}
+
+        return render(request, 'search.html', context=context)
+    else:
+        return HttpResponse('Please submit a search term.')
