@@ -13,22 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings
-from django.conf.urls import url, include
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.views.static import serve
+from django.conf.urls import url
 
-from blog import views
-from mysite.settings import STATIC_ROOT
+from comment import views
 
+app_name = 'comments'
 urlpatterns = [
-    url(r'admin/', admin.site.urls),
-    url(r'', include('blog.urls')),
-    url(r'', include('comment.urls')),
-    url(r'mdeditor/', include('mdeditor.urls')),
+    url(r'^blog/(?P<article_id>[0-9]+)/comment/$', views.CommentPostView.as_view(), name='comment'),
 ]
-
-if settings.DEBUG:
-    # static files (images, css, javascript, etc.)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

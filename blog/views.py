@@ -7,6 +7,7 @@ from pure_pagination import PageNotAnInteger, Paginator, EmptyPage
 
 # Create your views here.
 from blog.models import Blog, Category, Tag
+from comment.forms import BlogCommentForm
 
 
 def index(request):
@@ -52,9 +53,16 @@ def detail(request, pk):
     previous_blog = blog.get_previous()  # previous blog
     next_blog = blog.get_next()  # next blog
 
+    # 评论
+    comment_list = blog.comment_set.all()
+    form = BlogCommentForm
+
     context = {'blog': blog,
                'previous_blog': previous_blog,
-               'next_blog': next_blog}
+               'next_blog': next_blog,
+               'comment_list': comment_list,
+               'form': form,
+               }
     return render(request, 'detail.html', context=context)
 
 

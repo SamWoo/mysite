@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'blog',
     'pure_pagination',
     'mdeditor',
+    'comment',
 ]
 
 MIDDLEWARE = [

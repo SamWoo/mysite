@@ -9,8 +9,8 @@
             </h2>
             <h3 class="news_title">{{ blog.title }}</h3>
             <div class="news_author">
-                <span class="au01">{{ blog.comment_nums }}</span>
                 <span class="au02">{{ blog.create_time }}</span>
+                <span class="au01"><b>{{ blog.comment_set.count }}</b>&nbsp;条评论</span>
                 <span class="au03">共<b>{{ blog.click_nums }}</b>人围观</span>
             </div>
             <div class="tags">
@@ -106,6 +106,43 @@
         <h2>文章评论</h2>
         <ul>
         </ul>
+        <section class="comment-area" id="comment-area">
+            <hr>
+            <h3>发表评论</h3>
+            <form action="{% url 'comments:comment' blog.pk %}" method="post" class="comment-form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="{{ form.name.id_for_label }}">名字：</label>
+                        {{ form.name }}
+                        {{ form.name.errors }}
+                    </div>
+                    <div class="col-md-12">
+                        <label for="{{ form.text.id_for_label }}">评论：</label>
+                        {{ form.text }}
+                        {{ form.text.errors }}
+                        <button type="submit" class="comment-btn">发表</button>
+                    </div>
+                </div>    <!-- row -->
+            </form>
+            <div class="comment-list-panel">
+                <h3>评论列表，共 <span>{{ blog.comment_set.count }}</span> 条评论</h3>
+                <ul class="comment-list list-unstyled">
+                    {% for comment in comment_list %}
+                        <li class="comment-item">
+                            <span class="nickname">{{ comment.user_name }}</span>
+                            <time class="submit-date"
+                                  datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
+                            <div class="text">
+                                {{ comment.content}}
+                            </div>
+                        </li>
+                    {% empty %}
+                        暂无评论
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
     </div>
 {% endblock %}
 
@@ -118,7 +155,7 @@
                 <li>
                     <a href="{% url 'blog:detail' blog.pk %}">{{ blog.title }}</a>
                 </li>
-                {% empty %}
+            {% empty %}
                 暂无文章！
             {% endfor %}
         </ul>
