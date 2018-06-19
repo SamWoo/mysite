@@ -751,13 +751,49 @@ h3.blogtitle:hover a {
 }
 
 /*相关评论*/
-.news_pl {
-    margin: 10px 0;
+.publish_comment {
+    margin: 20px 0;
     width: 100%;
     background: #FFF;
     border-radius: 10px;
     overflow: hidden;
-    margin: 20px 0
+}
+
+.publish_comment h2 {
+    background: url(../images/newsbg03.png) no-repeat left 10px center;
+    border-bottom: #000 2px solid;
+    line-height: 40px;
+    font-size: 14px;
+    padding-left: 30px;
+    color: #000
+}
+
+.row {
+    padding-left: 12px;
+    color: #000;
+    font-size: 14px;
+    margin: 4px;
+}
+
+.comment-btn {
+    background-color: #f44336; /* red */
+    border-radius: 8px;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.news_pl {
+    margin: 20px 0;
+    width: 100%;
+    background: #FFF;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .news_pl h2 {
@@ -767,6 +803,27 @@ h3.blogtitle:hover a {
     font-size: 14px;
     padding-left: 30px;
     color: #000
+}
+
+.comment-item {
+    margin: 12px;
+}
+
+.nickname {
+    font-size: 15px;
+    color: #cc4125;
+    margin: 12px;
+}
+
+.submit-date {
+    color: #4a86e8;
+}
+
+.comment_content {
+    border-bottom: #cccccc 0.5px solid;
+    margin: 2px 12px;
+    text-align: justify;
+    padding: 4px 20px;
 }
 
 .xzsm ul, .ffsm ul {

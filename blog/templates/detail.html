@@ -102,47 +102,41 @@
             <li><a href="/" target="_blank">原来以为，一个人的勇敢是，删掉他的手机号码...</a></li>
         </ul>
     </div>
+    <div class="publish_comment">
+        <h2>发表评论</h2>
+        <form action="{% url 'comments:comment' blog.pk %}" method="post" class="comment-form">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="{{ form.user_name.id_for_label }}"><b>昵称：</b></label>
+                    {{ form.user_name }}
+                    {{ form.user_name.errors }}
+                </div>
+                <div class="col-md-12">
+                    <label for="{{ form.content.id_for_label }}"><b>评论：</b></label>
+                    {{ form.content }}
+                    {{ form.content.errors }}
+                    <button type="submit" class="comment-btn">发表</button>
+                </div>
+            </div>    <!-- row -->
+        </form>
+    </div>
     <div class="news_pl">
-        <h2>文章评论</h2>
-        <ul>
+        <h2>文章评论(<span>{{ blog.comment_set.count }}</span> 条评论)</h2>
+        <ul class="comment-list list-unstyled">
+            {% for comment in comment_list %}
+                <li class="comment-item">
+                    <span class="nickname"><b>{{ comment.user_name }}</b></span>
+                    <time class="submit-date"
+                          datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
+                    <div class="comment_content">
+                        {{ comment.content|safe }}
+                    </div>
+                </li>
+            {% empty %}
+                暂无评论
+            {% endfor %}
         </ul>
-        <section class="comment-area" id="comment-area">
-            <hr>
-            <h3>发表评论</h3>
-            <form action="{% url 'comments:comment' blog.pk %}" method="post" class="comment-form">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="{{ form.name.id_for_label }}">名字：</label>
-                        {{ form.name }}
-                        {{ form.name.errors }}
-                    </div>
-                    <div class="col-md-12">
-                        <label for="{{ form.text.id_for_label }}">评论：</label>
-                        {{ form.text }}
-                        {{ form.text.errors }}
-                        <button type="submit" class="comment-btn">发表</button>
-                    </div>
-                </div>    <!-- row -->
-            </form>
-            <div class="comment-list-panel">
-                <h3>评论列表，共 <span>{{ blog.comment_set.count }}</span> 条评论</h3>
-                <ul class="comment-list list-unstyled">
-                    {% for comment in comment_list %}
-                        <li class="comment-item">
-                            <span class="nickname">{{ comment.user_name }}</span>
-                            <time class="submit-date"
-                                  datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
-                            <div class="text">
-                                {{ comment.content}}
-                            </div>
-                        </li>
-                    {% empty %}
-                        暂无评论
-                    {% endfor %}
-                </ul>
-            </div>
-        </section>
     </div>
 {% endblock %}
 
