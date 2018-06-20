@@ -16,5 +16,9 @@ class BlogCommentForm(forms.ModelForm):
                 'placeholder': "请输入昵称",
                 'aria-describedby': "sizing-addon1",
             }),
-            'content': forms.Textarea(attrs={'placeholder': '我来评两句~'}),
+            'content': forms.Textarea(attrs={
+                'placeholder': '我来评两句~',
+                'cols':'100',
+                'rows':'5',
+            }),
         }
