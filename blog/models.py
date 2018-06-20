@@ -45,7 +45,6 @@ class Blog(models.Model):
     create_time = models.DateTimeField(verbose_name='创建时间', default=timezone.now)
     modify_time = models.DateTimeField(verbose_name='修改时间', auto_now=True)
     click_nums = models.IntegerField(verbose_name='点击量', default=0)
-    comment_nums = models.IntegerField(verbose_name='评论', default=0)
     category = models.ForeignKey(Category, verbose_name='文章类别', on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, verbose_name='文章标签')
 
