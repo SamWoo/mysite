@@ -812,7 +812,7 @@ h3.blogtitle:hover a {
 .nickname {
     font-size: 15px;
     color: #cc4125;
-    margin: 12px;
+    margin: 4px;
 }
 
 .submit-date {
@@ -821,9 +821,9 @@ h3.blogtitle:hover a {
 
 .comment_content {
     border-bottom: #cccccc 0.5px solid;
-    margin: 2px 12px;
+    margin: 2px;
     text-align: justify;
-    padding: 4px 20px;
+    padding: 2px;
 }
 
 .xzsm ul, .ffsm ul {
