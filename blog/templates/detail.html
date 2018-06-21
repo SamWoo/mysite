@@ -126,6 +126,7 @@
         <ul class="comment-list list-unstyled">
             {% for comment in comment_list %}
                 <li class="comment-item">
+                    <span class="floor">{{ forloop.counter }} 楼 </span>
                     <span class="nickname"><b>{{ comment.user_name }}</b></span>
                     <time class="submit-date"
                           datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
