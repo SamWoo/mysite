@@ -45,6 +45,7 @@ class Blog(models.Model):
     create_time = models.DateTimeField(verbose_name='创建时间', default=timezone.now)
     modify_time = models.DateTimeField(verbose_name='修改时间', auto_now=True)
     click_nums = models.IntegerField(verbose_name='点击量', default=0)
+    thumb_img = models.CharField(verbose_name='摘要缩略图', max_length=200, blank=True)
     category = models.ForeignKey(Category, verbose_name='文章类别', on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, verbose_name='文章标签')
 
@@ -67,18 +68,27 @@ class Blog(models.Model):
         '''
         自动截取生成文章摘要
         '''
+        # 先将 Markdown 文本渲染成 HTML 文本
+        md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.fenced_code'
+        ])
+        html = md.convert(self.content)
+
         # 如果没有填写摘要
         if not self.excerpt:
-            md = markdown.Markdown(extensions=[
-                'markdown.extensions.extra',
-                'markdown.extensions.codehilite',
-                'markdown.extensions.fenced_code'
-            ])
-            # 先将 Markdown 文本渲染成 HTML 文本
             # strip_tags 去掉 HTML 文本的全部 HTML 标签
             # 从文本摘取前 54 个字符赋给 excerpt
-            self.excerpt = strip_tags(md.convert(self.content))[:150]
-            # 调用父类的 save 方法将数据保存到数据库中
+            self.excerpt = strip_tags(html)[:150]
+
+        #自动获取摘要中的首张图片路径
+        if not self.thumb_img:
+            patter = r'\bsrc="(.*?)"'
+            m = re.search(patter, html, re.I)
+            # print(m.group()[5:-1])
+            self.thumb_img = m.group()[5:-1]
+        # 调用父类的 save 方法将数据保存到数据库中
         super(Blog, self).save(*args, **kwargs)
 
     def get_previous(self):
