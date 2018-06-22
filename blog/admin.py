@@ -7,7 +7,7 @@ from blog.models import Category, Tag
 
 # blog
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ['title', 'click_nums', 'category', 'create_time', 'modify_time']
+    list_display = ['title', 'thumb_img', 'category', 'create_time', 'modify_time']
 
 
 # category
