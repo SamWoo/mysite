@@ -242,12 +242,12 @@ h3.blogtitle:hover a {
 
 .blogpic {
     overflow: hidden;
-    width: 30%;
-    max-height: 100px;
+    width: 20%;
+    max-height: 40%;
     display: block;
     float: left;
     margin-right: 20px;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
 .newblogs ul {
@@ -701,7 +701,7 @@ h3.blogtitle:hover a {
     margin: 20px 0
 }
 
-/*��һƪ��һƪ*/
+/*上一篇下一篇*/
 .nextinfo p {
     padding: 4px 10px;
     border-radius: 5px;

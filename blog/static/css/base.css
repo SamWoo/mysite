@@ -1,5 +1,5 @@
 @charset "gb2312";
-/* 鹿虏脫脙css */
+/* 共用css */
 * {
     margin: 0;
     padding: 0
@@ -16,13 +16,14 @@ img {
     border: 0;
     display: block;
     margin: 0 auto;
+    padding: 8px;
 }
 
 ul, li {
     list-style: none;
 }
 
-/*脛卢脠脧脕麓陆脫脩脮脡芦 */
+/*默认链接颜色 */
 a {
     text-decoration: none;
     color: #555
@@ -71,7 +72,7 @@ header {
 }
 
 #mnav {
-    width: 1100px;
+    width: 1200px;
     margin: auto
 }
 
@@ -163,7 +164,7 @@ header {
 
 /* article */
 article {
-    width: 1100px;
+    width: 1200px;
     margin: auto;
     overflow: hidden
 }
