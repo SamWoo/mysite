@@ -66,9 +66,26 @@ header {
     z-index: 100
 }
 
-.logo {
+.login {
     float: left;
-    font-size: 22px
+    font-size: 14px
+}
+
+#username a{
+    font-size: 22px;
+}
+
+.loginbtn {
+    border-radius: 4px;
+    border: 0.5px #f1f1f1 solid;
+    width: 48px;
+    padding: 4px;
+    font-size: 14px;
+    background: #f44336;
+}
+
+.btn a{
+    color: white;
 }
 
 #mnav {
@@ -100,7 +117,7 @@ header {
     font-size: 16px
 }
 
-#starlist li:hover a{
+#starlist li:hover a {
     color: #f00;
     text-decoration: underline
 }

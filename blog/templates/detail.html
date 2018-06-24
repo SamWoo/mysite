@@ -103,23 +103,34 @@
         </ul>
     </div>
     <div class="publish_comment">
-        <h2>发表评论</h2>
-        <form action="{% url 'comments:comment' blog.pk %}" method="post" class="comment-form">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="{{ form.user_name.id_for_label }}"><b>昵称：</b></label>
-                    {{ form.user_name }}
-                    {{ form.user_name.errors }}
-                </div>
-                <div class="col-md-12">
-                    <label for="{{ form.content.id_for_label }}"><b>评论：</b></label>
-                    {{ form.content }}
-                    {{ form.content.errors }}
-                </div>
-                <div><button type="submit" class="comment-btn">发表</button></div>
-            </div>    <!-- row -->
-        </form>
+        {% if user.is_authenticated %}
+            <h2>发表评论</h2>
+            <form action="{% url 'comments:comment' blog.pk %}" method="post" class="comment-form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="{{ form.user_name.id_for_label }}"><b>昵称：</b></label>
+                        {{ form.user_name }}
+                        {{ form.user_name.errors }}
+                    </div>
+                    <div class="col-md-12">
+                        <label for="{{ form.content.id_for_label }}"><b>评论：</b></label>
+                        {{ form.content }}
+                        {{ form.content.errors }}
+                    </div>
+                    <div>
+                        <button type="submit" class="comment-btn">发表</button>
+                    </div>
+                </div>    <!-- row -->
+            </form>
+        {% else %}
+            <p class="comment-tips">你还没有登录，请
+                <button class="comment-btn"><a href="{% url 'login' %}">登录</a></button>
+                或者
+                <button class="comment-btn"><a href="{% url 'user:register' %}">注册</a></button>
+                后再发表评论!
+            </p>
+        {% endif %}
     </div>
     <div class="news_pl">
         <h2>文章评论(<span>{{ blog.comment_set.count }}</span> 条评论)</h2>

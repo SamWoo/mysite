@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'pure_pagination',
     'mdeditor',
     'comment',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -170,3 +171,5 @@ MDEDITOR_CONFIGS = {
     'sequence': True,  # 是否开启序列图功能
 }
 '''
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'

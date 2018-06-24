@@ -26,6 +26,9 @@ urlpatterns = [
     url(r'admin/', admin.site.urls),
     url(r'', include('blog.urls')),
     url(r'', include('comment.urls')),
+    url(r'', include('user.urls')),
+    # 将 auth 应用中的 urls 模块包含进来
+    url(r'', include('django.contrib.auth.urls')),
     url(r'mdeditor/', include('mdeditor.urls')),
 ]
 
