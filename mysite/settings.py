@@ -176,3 +176,8 @@ LOGIN_REDIRECT_URL = '/'
 
 # 配置邮件相关信息
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# 对用户的凭据信息进行验证
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'user.backends.EmailBackend',
+)

@@ -70,30 +70,40 @@ header {
     font-size: 14px
 }
 
-#username a{
+#username a {
     font-size: 22px;
+    color: white;
 }
 
-.loginbtn {
+.login-btn {
     border-radius: 4px;
     border: 0.5px #f1f1f1 solid;
     width: 48px;
     padding: 4px;
     font-size: 14px;
-    background: #f44336;
+    background: transparent;
 }
 
-.btn a{
+.login-btn a {
     color: white;
+}
+
+.register-btn {
+    border-radius: 4px;
+    border: 0.5px #f1f1f1 solid;
+    width: 48px;
+    padding: 4px;
+    font-size: 14px;
+    background: white;
+}
+
+.register-btn {
+    color: black;
 }
 
 #mnav {
     width: 1200px;
     margin: auto
-}
-
-#mnav a {
-    color: #FFF
 }
 
 #mnavh {
@@ -109,6 +119,10 @@ header {
     float: right;
 }
 
+#starlist a {
+    color: #FFF
+}
+
 #starlist li {
     float: left;
     display: block;
@@ -117,7 +131,7 @@ header {
 }
 
 #starlist li:hover a {
-    color: #f00;
+    color: #009a61;
     text-decoration: underline
 }
 
