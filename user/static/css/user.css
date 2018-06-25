@@ -9,7 +9,7 @@ body {
     border: white 0.5px solid;
     padding: 12px 40px;
     border-radius: 8px;
-    margin-top: 15%;
+    margin-top: 5%;
 }
 
 h2 {
@@ -18,5 +18,8 @@ h2 {
     border-bottom: white 1px solid;
 }
 
+.help{
+    color:#DD4822;
+}
 
 

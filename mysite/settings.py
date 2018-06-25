@@ -173,3 +173,6 @@ MDEDITOR_CONFIGS = {
 '''
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
+
+# 配置邮件相关信息
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

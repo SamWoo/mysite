@@ -31,7 +31,7 @@ def index(request):
 
     context = {'blog_list': blogs, }
 
-    return render(request, 'index.html', context=context)
+    return render(request, 'blog/index.html', context=context)
 
 
 def detail(request, pk):
@@ -63,7 +63,7 @@ def detail(request, pk):
                'comment_list': comment_list,
                'form': form,
                }
-    return render(request, 'detail.html', context=context)
+    return render(request, 'blog/detail.html', context=context)
 
 
 def archives(request, year, month):
@@ -89,7 +89,7 @@ def archives(request, year, month):
         blogs = paginator.page(paginator.num_pages)
     # print(blog_list)
 
-    return render(request, 'index.html', context={'blog_list': blogs})
+    return render(request, 'blog/index.html', context={'blog_list': blogs})
 
 
 def category(request, pk):
@@ -113,7 +113,7 @@ def category(request, pk):
         blogs = paginator.page(paginator.num_pages)
     # print(blog_list)
 
-    return render(request, 'index.html', context={'blog_list': blogs})
+    return render(request, 'blog/index.html', context={'blog_list': blogs})
 
 
 def tag(request, pk):
@@ -137,7 +137,7 @@ def tag(request, pk):
         blogs = paginator.page(paginator.num_pages)
     # print(blog_list)
 
-    return render(request, 'index.html', context={'blog_list': blogs})
+    return render(request, 'blog/index.html', context={'blog_list': blogs})
 
 
 def about(request):
@@ -146,7 +146,7 @@ def about(request):
     :param request:
     :return:
     '''
-    return render(request, 'about.html')
+    return render(request, 'blog/about.html')
 
 
 def search(request):
@@ -171,6 +171,6 @@ def search(request):
         context = {'blog_list': blogs,
                    'keywords': keywords}
 
-        return render(request, 'search.html', context=context)
+        return render(request, 'blog/search.html', context=context)
     else:
         return HttpResponse('Please submit a search term.')

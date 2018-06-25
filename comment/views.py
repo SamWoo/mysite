@@ -13,7 +13,7 @@ class CommentPostView(FormView):
     form_class = BlogCommentForm
     # 指定评论提交成功后跳转渲染的模板文件。
     # 我们的评论表单放在detail.html中，评论成功后返回到原始提交页面。
-    template_name = 'detail.html'
+    template_name = 'blog/detail.html'
 
     def form_valid(self, form):
         """提交的数据验证合法后的逻辑"""
@@ -43,4 +43,4 @@ class CommentPostView(FormView):
             'article': target_article,
             'comment_list': target_article.comment_set.all()
         }
-        return render(self.request, 'detail.html', context=context)
+        return render(self.request, 'blog/detail.html', context=context)

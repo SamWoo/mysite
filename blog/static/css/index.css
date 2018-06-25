@@ -386,7 +386,7 @@ h3.blogtitle:hover a {
 
 .avatar img {
     width: 100px;
-    height: 100px
+    height: 100px;
 }
 
 /*search*/
@@ -684,6 +684,7 @@ h3.blogtitle:hover a {
 .news_infos img {
     max-width: 650px;
     height: auto;
+    padding:8px;
 }
 
 .share {
