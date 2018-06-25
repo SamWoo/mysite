@@ -1,4 +1,5 @@
 #忽略markdown编辑时上传的图片文件
 uploads/
+venv/
 .idea/
 *.pyc
