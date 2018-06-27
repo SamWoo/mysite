@@ -39,7 +39,7 @@
         <ul id="starlist">
             <li><a href="{% url 'blog:index' %}">网站首页</a></li>
             <li><a href="#">技术探讨</a></li>
-            <li><a href="#">慢生活</a></li>
+            <li><a href="{% url 'upload_image:show' %}">慢生活</a></li>
             <li><a href="{% url 'blog:about' %}">关于我</a></li>
             {% if user.is_authenticated %}
                 <li>
