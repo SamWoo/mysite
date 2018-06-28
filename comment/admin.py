@@ -6,7 +6,7 @@ from comment import models
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['article', 'content', 'created_time']
+    list_display = ['article', 'user', 'content', 'created_time']
 
 
 admin.site.register(models.Comment, CommentAdmin)

@@ -27,6 +27,9 @@ class CommentPostView(FormView):
 
         # 把评论和文章关联
         comment.article = target_article
+        if self.request.user.is_authenticated:
+            comment.user = self.request.user
+            print(comment.user)
         comment.save()
 
         # 评论生成成功，重定向到被评论的文章页面

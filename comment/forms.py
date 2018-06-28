@@ -18,7 +18,7 @@ class BlogCommentForm(forms.ModelForm):
             # }),
             'content': forms.Textarea(attrs={
                 'placeholder': '我来评两句~',
-                'cols':'100',
+                'cols':'112',
                 'rows':'5',
             }),
         }

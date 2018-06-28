@@ -23,7 +23,7 @@ def register(request):
             # 如果提交数据合法，调用表单的 save 方法将用户数据保存到数据库
             user = form.save()
             # 自动登录
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
             if redirect_to:
                 # 跳转之前浏览页面

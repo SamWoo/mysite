@@ -182,3 +182,5 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'user.backends.EmailBackend',
 )
+# 拓展User信息
+AUTH_PROFILE_MODULE = 'user.Profile'
