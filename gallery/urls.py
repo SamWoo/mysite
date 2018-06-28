@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from upload_image import views
+from gallery import views
 
-app_name = 'upload_image'
+app_name = 'gallery'
 urlpatterns = [
     url(r'^upload/$', views.uploadImage, name='upload'),
     url(r'^show/$', views.showImage, name='show'),

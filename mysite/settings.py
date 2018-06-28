@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'mdeditor',
     'comment',
     'user',
-    'upload_image',
+    'gallery',
 ]
 
 MIDDLEWARE = [

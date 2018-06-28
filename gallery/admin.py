@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 # blog
-from upload_image import models
+from gallery import models
 
 
 class UploadImgAdmin(admin.ModelAdmin):

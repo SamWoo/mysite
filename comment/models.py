@@ -6,9 +6,9 @@ from blog.models import Blog
 
 class Comment(models.Model):
     article = models.ForeignKey(Blog, verbose_name='评论所属文章', on_delete=models.CASCADE)
-    user_name = models.CharField(verbose_name='评论者名字', max_length=100)
+    # user_name = models.CharField(verbose_name='评论者名字', max_length=100)
     content = models.TextField(verbose_name='评论内容')
     created_time = models.DateTimeField('评论发表时间', auto_now_add=True)
 
     def __str__(self):
-        return self.user_name.username + ':' + self.content[:20]
+        return ':' + self.content[:20]
