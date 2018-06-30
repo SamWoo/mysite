@@ -1,3 +1,4 @@
+import markdown
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 # Create your views here.
@@ -48,7 +49,12 @@ class CommentPostView(FormView):
             logger.error(u'[CommentControl]当前用户输入空评论:[{}]'.format(comment.user.username))
             return HttpResponse(u'请输入评论内容!!')
 
-        comment.content = text
+        comment.content = markdown.markdown(text,
+                                            extensions=[
+                                                'markdown.extensions.extra',
+                                                'markdown.extensions.codehilite',
+                                                'markdown.extensions.toc',
+                                            ])
         comment.parent = parent
         comment.save()
 

@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load comment_tags %}
 <div id="anchor-quote"></div>
 <div class="publish_comment">
     {% if user.is_authenticated %}
@@ -48,7 +49,7 @@
                         <p>
                             <a style="color: #f44336;font-weight: bold">@{{ comment.parent.user.username }}：</a>
                             {% autoescape on %}
-                                {{ comment.parent.content }}
+                                {{ comment.parent.content|safe }}
                             {% endautoescape %}
                         </p>
                     </div>
@@ -71,8 +72,9 @@
         comment.focus();
         comment.setSelectionRange(comment.value.length, comment.value.length)
     }
-/**
-    $('#comment-form').submit(function () {
+
+    /**
+     $('#comment-form').submit(function () {
         $.ajax({
             type: "POST",
             url: "comment/{{ blog.pk }}/",
@@ -90,5 +92,5 @@
         });
         return false;
     });
-    **/
+     **/
 </script>
