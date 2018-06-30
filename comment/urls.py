@@ -19,5 +19,5 @@ from comment import views
 
 app_name = 'comments'
 urlpatterns = [
-    url(r'^blog/(?P<article_id>[0-9]+)/comment/$', views.CommentPostView.as_view(), name='comment'),
+    url(r'^comment/(?P<article_id>[0-9]+)/$', views.CommentPostView.as_view(), name='comment'),
 ]

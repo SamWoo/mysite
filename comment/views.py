@@ -1,11 +1,12 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
-
 # Create your views here.
 from django.views.generic import FormView
+from django.views.generic.base import logger
 
 from blog.models import Blog
 from comment.forms import BlogCommentForm
+from comment.models import Comment
 
 
 class CommentPostView(FormView):
@@ -24,16 +25,35 @@ class CommentPostView(FormView):
         # 调用ModelForm的save方法保存评论，设置commit=False则先不保存到数据库，
         # 而是返回生成的comment实例，直到真正调用save方法时才保存到数据库。
         comment = form.save(commit=False)
+        text = comment.content
 
         # 把评论和文章关联
         comment.article = target_article
         if self.request.user.is_authenticated:
             comment.user = self.request.user
             print(comment.user)
+
+        parent = None
+        if text.startswith('@['):
+            import ast
+            parent_str = text[1:text.find(':')]
+            parent_id = ast.literal_eval(parent_str)[1]
+            text = text[text.find(':') + 1:]
+            try:
+                parent = Comment.objects.get(pk=parent_id)
+            except Comment.DoesNotExist:
+                return HttpResponse(u'引用评论错误!!')
+
+        if not text:
+            logger.error(u'[CommentControl]当前用户输入空评论:[{}]'.format(comment.user.username))
+            return HttpResponse(u'请输入评论内容!!')
+
+        comment.content = text
+        comment.parent = parent
         comment.save()
 
         # 评论生成成功，重定向到被评论的文章页面
-        self.success_url = target_article.get_absolute_url()
+        self.success_url = target_article.get_absolute_url() + "#" + str(comment.pk)
         return HttpResponseRedirect(self.success_url)
 
     def form_invalid(self, form):

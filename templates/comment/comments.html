@@ -1,0 +1,94 @@
+{% load staticfiles %}
+<div id="anchor-quote"></div>
+<div class="publish_comment">
+    {% if user.is_authenticated %}
+        <h2>发表评论</h2>
+        <form action="{% url 'comments:comment' blog.pk %}" method="post" class="comment-form" id="comment-form">
+            {% csrf_token %}
+            <div class="row">
+                {#                <textarea id="comment" name="comment" class="form-control" rows="4" cols="120"#}
+                {#                          style="margin: 4px;border-radius: 4px;"#}
+                {#                          placeholder="请输入评论 限200字!"></textarea>#}
+                <div class="col-md-12">
+                    {{ form.content }}
+                    {{ form.content.errors }}
+                </div>
+                <button type="submit" class="submit-btn">发表</button>
+            </div>
+        </form>
+    {% else %}
+        <p class="comment-tips">你还没有登录，请
+            <button class="comment-btn"><a href="{% url 'login' %}?next={{ request.path }}">登录</a></button>
+            或者
+            <button class="comment-btn"><a href="{% url 'user:register' %}?next={{ request.path }}">注册</a></button>
+            后再发表评论!
+        </p>
+    {% endif %}
+</div>
+<div class="news_pl">
+    <h2>文章评论(共&nbsp;<span style="color:#f44336;font-weight: bold">{{ blog.comment_set.count }}&nbsp;</span>条评论)</h2>
+    <ul class="comment-list list-unstyled">
+        {% for comment in comment_list %}
+            <li class="comment-item" id="{{ comment.pk }}">
+                {% if comment.user.profile.img %}
+                    <img src="/media/{{ comment.user.profile.img }}" width="40" style="float:left;padding:2px 8px;">
+                {% else %}
+                    <img src="{% static 'picture/04.jpg' %}" width="40" style="float:left;padding:2px 8px;">
+                {% endif %}
+                <span class="floor">#{{ forloop.counter }}楼 </span>
+                <span class="nickname"><b>{{ comment.user.username }}</b></span>
+                <span><a class="'quote" href="#anchor-quote" style="color: orange;font-size: 14px"
+                         onclick="return CommentQuote('{{ comment.user.username }}',{{ comment.pk }});">&nbsp;&nbsp;回复</a></span>
+                <p>
+                    <time class="submit-date"
+                          datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
+                </p>
+                {% if comment.parent %}
+                    <div class="comment-quote">
+                        <p>
+                            <a style="color: #f44336;font-weight: bold">@{{ comment.parent.user.username }}：</a>
+                            {% autoescape on %}
+                                {{ comment.parent.content }}
+                            {% endautoescape %}
+                        </p>
+                    </div>
+                {% endif %}
+                <div class="comment_content">
+                    {% autoescape on %}
+                        {{ comment.content|safe }}
+                    {% endautoescape %}
+                </div>
+            </li>
+        {% empty %}
+            暂无评论
+        {% endfor %}
+    </ul>
+</div>
+<script type="text/javascript">
+    function CommentQuote(user_name, comment_id) {
+        var comment = document.getElementById('comment');
+        comment.value = "@['" + user_name + "'," + comment_id + "]:";
+        comment.focus();
+        comment.setSelectionRange(comment.value.length, comment.value.length)
+    }
+/**
+    $('#comment-form').submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "comment/{{ blog.pk }}/",
+            data: {"comment": $("#comment").val()},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            },
+            success: function (data, textStatus) {
+                $("#comment").val("");
+                $(".comment ul").prepend(data)
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.responseText);
+            }
+        });
+        return false;
+    });
+    **/
+</script>

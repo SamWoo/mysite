@@ -17,8 +17,12 @@ class BlogCommentForm(forms.ModelForm):
             #     'aria-describedby': "sizing-addon1",
             # }),
             'content': forms.Textarea(attrs={
-                'placeholder': '我来评两句~',
-                'cols':'112',
-                'rows':'5',
+                'placeholder': '请输入评论 限200字!',
+                'rows': '5',
+                'cols':'120',
+                'style': 'margin: 4px;border-radius: 4px;',
+                'id': 'comment',
+                'name': 'comment',
+                'class': 'form-control'
             }),
         }
