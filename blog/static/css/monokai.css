@@ -3,14 +3,16 @@
 }
 
 .codehilite {
-    font-family: "Consolas", "Courier New", Courier, mono, serif;
-    font-size: 14px;
-    background: #272822;
-    color: #f8f8f2;
+    /*font-family: "Courier New", Courier, mono, serif;*/
+    font-size: 16px;
+    background: #282c34;
+    color: #7a818c;
     width: 99%;
-    margin: 4px !important;
-    padding-left: 14px;
+    margin: 10px !important;
+    padding: 8px;
     text-align: left;
+    border-radius: 4px;
+    overflow: auto;
 }
 
 .codehilite .c {
