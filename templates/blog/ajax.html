@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AjaxTest</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<form id="myform">
+    {% csrf_token %}
+    <label for="nickname">NickName:</label>
+    <input type="text" id="username"/>
+    <label for="comment">Comment:</label>
+    <input type="text" id="comment"/>
+    <input type="submit" id="submit" value="Submit"/>
+</form>
+<div><ul></ul></div>
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+        });
+        $("form").submit(function () {
+            var username = $("#username").val(),
+                comment = $("#comment").val();
+            console.log(username + ":" + comment)
+            $.ajax({
+                type: 'POST',
+                url: '',
+                data: {
+                    username: username,
+                    comment: comment,
+                },
+                {#datatype:'json',#}
+                success: function (data) {
+                    {#alert(data);#}
+                    {#var dat=JSON.stringify(data);#}
+                    {#alert(dat);#}
+                    {#$("span").text(dat);#}
+                    $("ul").prepend(data);
+                },
+                error: function () {
+                    alert("post failed!!");
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

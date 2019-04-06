@@ -1,0 +1,76 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div class="row text-center vertical-middle-sm">
+    <h1>My Information</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4 text-right"><span>用户名：</span></div>
+                <div class="col-md-8 text-left">{{ user.username }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>邮箱：</span></div>
+                <div class="col-md-8 text-left">{{ user.email }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>生日：</span></div>
+                <div class="col-md-8 text-left">{{ userinfo.birthday }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>电话：</span></div>
+                <div class="col-md-8 text-left">{{ userinfo.phone }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>职业：</span></div>
+                <div class="col-md-8 text-left">{{ userinfo.profession }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>住址：</span></div>
+                <div class="col-md-8 text-left">{{ userinfo.address }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>简介：</span></div>
+                <div class="col-md-8 text-left">{{ userinfo.aboutme }}</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {#            <p>这里有张图片</p>#}
+            <div style="margin-right: 100px">
+                {% if userprofile.img %}
+                    {#                    <p style="color: #aa0000;">{{ userprofile.img| striptags }}</p>#}
+                    <img name="user_avatar" src="{{ userprofile.img | striptags }}" class="img-circle" width="270px"
+                         id="my_avatar">
+                {% else %}
+                    <img name="user_avatar" src="{% static '/images/avatar.jpg' %}" class="img-circle" width="270px"
+                         id="my_avatar">
+                {% endif %}
+            </div>
+            <div style="margin: 40px 100px 0 auto">
+                <button class="btn btn-primary btn-lg" id="upload_image" onclick="upload_image_layer()">upload my
+                    photo
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+<script>
+    function upload_image_layer() {
+        layer.open({
+            title: '上传图像',
+            area: ['650px', '600px'],
+            type: 2,
+            content: "{% url 'user:my_image' %}",
+        })
+    }
+</script>
+</body>
+</html>

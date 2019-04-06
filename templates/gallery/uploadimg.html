@@ -1,5 +1,19 @@
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="images" multiple="">
-    <button type="submit">上传</button>
-</form>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>照片上传</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div style="padding:100px 100px 10px">
+    <form class="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input class="file-upload" type="file" name="images" multiple="">
+        <button class="btn btn-primary btn-sm" type="submit">上传</button>
+    </form>
+</div>
+
+</body>
+</html>

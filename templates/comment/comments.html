@@ -34,7 +34,7 @@
                 {% if comment.user.profile.img %}
                     <img src="/media/{{ comment.user.profile.img }}" width="40" style="float:left;padding:2px 8px;">
                 {% else %}
-                    <img src="{% static 'picture/04.jpg' %}" width="40" style="float:left;padding:2px 8px;">
+                    <img src="{% static 'images/img.jpg' %}" width="40" style="float:left;padding:2px 8px;">
                 {% endif %}
                 <span class="floor">#{{ forloop.counter }}楼 </span>
                 <span class="nickname"><b>{{ comment.user.username }}</b></span>

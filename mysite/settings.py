@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'myblog',  # 数据库名
         'USER': 'root',  # 用户名
-        'PASSWORD': 'password',  # 密码
+        'PASSWORD': '123456',  # 密码
         'HOST': '127.0.0.1',  # 本机地址
         'PORT': '3306',  # 端口
     }
@@ -144,7 +144,7 @@ PAGINATION_SETTINGS = {
 }
 
 # 媒体文件路径
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 # Markdown富文本编辑配置
 '''
