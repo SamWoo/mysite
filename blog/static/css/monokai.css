@@ -3,12 +3,11 @@
 }
 
 .codehilite {
-    /*font-family: "Courier New", Courier, mono, serif;*/
+    font-family: "Courier New", Courier, mono, serif;
     font-size: 16px;
     background: #282c34;
     color: #7a818c;
-    width: 99%;
-    margin: 10px !important;
+    margin: 4px !important;
     padding: 8px;
     text-align: left;
     border-radius: 4px;

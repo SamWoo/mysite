@@ -1,8 +1,12 @@
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from user.forms import RegisterForm
+from user.models import Profile, UserInfo
 
 
 def register(request):
@@ -22,6 +26,8 @@ def register(request):
         if form.is_valid():
             # 如果提交数据合法，调用表单的 save 方法将用户数据保存到数据库
             user = form.save()
+            Profile.objects.create(user=user)
+            UserInfo.objects.create(user=user)
             # 自动登录
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
@@ -45,3 +51,30 @@ def register(request):
 
 def profile(requset):
     return redirect('/')
+
+
+@login_required(login_url='/login/')
+def myself(requset):
+    user = User.objects.get(username=requset.user.username)
+    userprofile = Profile.objects.get(user=user)
+    userinfo = UserInfo.objects.get(user=user)
+    context = {
+        "user": user,
+        "userprofile": userprofile,
+        "userinfo": userinfo
+    }
+    # print('img-->{}'.format(userprofile.img))
+    return render(requset, 'user/myself.html', context=context)
+
+
+@login_required(login_url='/login/')
+def my_image(request):
+    if request.method == 'POST':
+        img = request.POST['img']
+        userprofile = Profile.objects.get(user=request.user.id)
+        userprofile.img = img
+        # print('save img ===> {}'.format(userprofile.img))
+        userprofile.save()
+        return HttpResponse("1")
+    else:
+        return render(request, 'user/imagecrop.html')

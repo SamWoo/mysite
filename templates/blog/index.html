@@ -63,7 +63,13 @@
 {% block aboutme %}
     <div class="aboutme">
         <h2 class="ab_title">关于我</h2>
-        <div class="avatar"><img src="{% static 'picture/04.jpg' %}"/></div>
+        <div class="avatar">
+            {% if user.is_authenticated %}
+                <img src="/media/{{ user.profile.img }}"/>
+            {% else %}
+                <img src="{% static 'images/img.jpg' %}">
+            {% endif %}
+        </div>
         <div class="ab_con">
             <p>网名：SamBrother | 烟雨江南</p>
             <p>职业：码农、业余厨子 </p>

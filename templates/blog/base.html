@@ -23,8 +23,7 @@
 <body>
 <header>
     <div id="mnav">
-        <div class="login">
-            {% if user.is_authenticated %}
+        <div class="login">            {% if user.is_authenticated %}
                 <p id="username"><a href="#">{{ user.username }}</a>，欢迎你！！</p>
             {% else %}
                 <p>你还没有登录，请

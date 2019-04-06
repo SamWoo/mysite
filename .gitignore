@@ -1,5 +1,7 @@
 #忽略markdown编辑时上传的图片文件
-uploads/
+media/
 venv/
 .idea/
 *.pyc
+*/__pycache__/
+*/migrations/

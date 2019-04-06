@@ -1,8 +1,12 @@
 # -*-coding:utf-8-*-
+import datetime
+
 import markdown
+import json
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from pure_pagination import PageNotAnInteger, Paginator, EmptyPage
 
 # Create your views here.
@@ -174,3 +178,29 @@ def search(request):
         return render(request, 'blog/search.html', context=context)
     else:
         return HttpResponse('Please submit a search term.')
+
+
+@csrf_exempt
+def testajax(request):
+    if request.method == "POST":
+        if request.is_ajax():
+            username = request.POST.get("username", "admin")
+            comment = request.POST.get("comment", "default comment!")
+            data = {'username': username, 'comment': comment}
+            print(data)
+            # 返回当前评论
+            html = u"<li>\
+                        <div class=\"vmaig-comment-content\">\
+                        <a><h1>{}</h1></a>\
+                        {}\
+                        <p>{}</p>\
+                        </div>\
+                            </li>".format(
+                username,
+                comment,
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            )
+            # return HttpResponse(json.dumps(data, ensure_ascii=False), content_type='application/json')
+            return HttpResponse(html)
+    else:
+        return render(request, "blog/ajax.html")
