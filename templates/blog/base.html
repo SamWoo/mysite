@@ -19,11 +19,13 @@
     <![endif]-->
     <script src="{% static 'js/page.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+
 </head>
 <body>
 <header>
     <div id="mnav">
-        <div class="login">            {% if user.is_authenticated %}
+        <div class="login">
+            {% if user.is_authenticated %}
                 <p id="username"><a href="#">{{ user.username }}</a>，欢迎你！！</p>
             {% else %}
                 <p>你还没有登录，请
@@ -45,6 +47,7 @@
                     <button class="login-btn"><a href="{% url 'logout' %}?next={{ request.path }}">退出</a></button>
                 </li>
             {% else %}
+                <p></p>
             {% endif %}
         </ul>
     </div>
@@ -62,14 +65,10 @@
 </header>
 <div class="line46"></div>
 <article>
-    <div class="pics">
-        <ul>
-            <li><i><a href="/"><img src="{% static 'images/t01.jpg' %}"></a></i><span>这组图片中的静物等非常的日系</span></li>
-            <li><i><a href="/"><img src="{% static 'images/t02.jpg' %}"></a></i><span>这组图片中的静物等非常的日系</span></li>
-            <li><i><a href="/"><img src="{% static 'images/t03.jpg' %}"></a></i><span>这组图片中的静物等非常的日系</span></li>
-        </ul>
-    </div>
-    <div class="blank"></div>
+    {% block ViewSlider %}
+        <!-- 轮播图片 -->
+    {% endblock %}
+
     <div class="leftbox">
         <!--  左边 -->
         {% block leftbox %}

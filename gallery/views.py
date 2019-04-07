@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -9,13 +10,15 @@ from gallery.models import Image
 @csrf_exempt
 def uploadImage(request):
     if request.method == 'POST':
-        images = request.FILES.getlist('images')
-        # print(images)
+        # images = request.FILES.getlist('images')
+        images = request.FILES.getlist('files[]')  # ssi-uploader插件返回的数据Key=files[]
+        print(images)
         for image in images:
             new_img = Image(img=image)
             new_img.save()
-    # return redirect('gallery:show')
-    return render(request, 'gallery/uploadimg.html')
+        return HttpResponse("1")
+    else:
+        return render(request, 'gallery/upload.html')
 
 
 @csrf_exempt

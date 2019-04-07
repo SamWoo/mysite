@@ -12,6 +12,7 @@ from pure_pagination import PageNotAnInteger, Paginator, EmptyPage
 # Create your views here.
 from blog.models import Blog, Category, Tag
 from comment.forms import BlogCommentForm
+from gallery.models import Image
 
 
 def index(request):
@@ -32,8 +33,13 @@ def index(request):
         blogs = paginator.page(paginator.num_pages)
     # print(blog_list)
     print(blogs)
+    # 获取Gallery图片
+    # images = Image.objects.all()[:5]
 
-    context = {'blog_list': blogs, }
+    context = {
+        'blog_list': blogs,
+        # 'images': images,
+    }
 
     return render(request, 'blog/index.html', context=context)
 

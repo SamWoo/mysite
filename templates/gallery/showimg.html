@@ -56,7 +56,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <a class="navbar-brand" href="{% url 'blog:index' %}">Gellery</a>
+                {#                <a class="navbar-brand" href="{% url 'gallery:upload' %}">Gellery</a>#}
+                <a class="navbar-brand" id="upload-image" onclick="upload_image_layer()">Gellery</a>
             </div>
         </div>
     </div>
@@ -83,7 +84,6 @@
 </div>
 
 <footer id="fh5co-footer">
-
     <div class="container">
         <div class="row row-padded">
             <div class="col-md-12 text-center">
@@ -110,7 +110,19 @@
 <script src="{% static 'gallery/js/salvattore.min.js' %}"></script>
 <!-- Main JS -->
 <script src="{% static 'gallery/js/main.js' %}"></script>
-
+<!-- Layer Js -->
+{#<script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>#}
+<script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+<script>
+    function upload_image_layer() {
+        layer.open({
+            title: '上传图像',
+            area: ['650px', '600px'],
+            type: 2,
+            content: "{% url 'gallery:upload' %}",
+        })
+    }
+</script>
 
 </body>
 </html>
