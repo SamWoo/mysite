@@ -1,0 +1,42 @@
+<header>
+    <div id="mnav">
+        <div class="login">
+            {% if user.is_authenticated %}
+            <p id="username"><a href="#">{{ user.username }}</a>，欢迎你！！</p>
+            {% else %}
+            <p>你还没有登录，请
+                <button class="login-btn"><a href="{% url 'login' %}?next={{ request.path }}">登录</a></button>
+                或者
+                <button class="register-btn"><a href="{% url 'user:register' %}?next={{ request.path }}">注册</a>
+                </button>
+            </p>
+            {% endif %}
+        </div>
+        <h2 id="mnavh"><span class="navicon"></span></h2>
+        <ul id="starlist">
+            <li><a href="{% url 'blog:index' %}">网站首页</a></li>
+            <li><a href="#">技术探讨</a></li>
+            <li><a href="{% url 'gallery:show' %}">慢生活</a></li>
+            <li><a href="{% url 'blog:about' %}">关于我</a></li>
+            {% if user.is_authenticated %}
+            <li>
+                <button class="login-btn"><a href="{% url 'logout' %}?next={{ request.path }}">退出</a></button>
+            </li>
+            {% else %}
+            <p></p>
+            {% endif %}
+        </ul>
+    </div>
+    <script>
+        window.onload = function () {
+            var oH2 = document.getElementById("mnavh");
+            var oUl = document.getElementById("starlist");
+            oH2.onclick = function () {
+                var style = oUl.style;
+                style.display = style.display == "block" ? "none" : "block";
+                oH2.className = style.display == "block" ? "open" : ""
+            }
+        }
+
+    </script>
+</header>

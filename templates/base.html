@@ -4,14 +4,16 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Sam's Blog</title>
+    {% block title%}
+        <title>Sam's Blog</title>
+    {% endblock %}
     <meta name="keywords" content="个人博客"/>
     <meta name="description" content="被编程耽误的小厨子"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css">
-    {#    <link rel="stylesheet" href="{% static 'css/github.css' %}" type="text/css">#}
+    <!--link rel="stylesheet" href="{% static 'css/github.css' %}" type="text/css"-->
     <link rel="stylesheet" href="{% static 'css/monokai.css' %}" type="text/css">
-    {#    <link rel="stylesheet" href="{% static 'css/code.css' %}" type="text/css">#}
+    <!--link rel="stylesheet" href="{% static 'css/code.css' %}" type="text/css"-->
     <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/m.css' %}" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
@@ -22,51 +24,11 @@
 
 </head>
 <body>
-<header>
-    <div id="mnav">
-        <div class="login">
-            {% if user.is_authenticated %}
-                <p id="username"><a href="#">{{ user.username }}</a>，欢迎你！！</p>
-            {% else %}
-                <p>你还没有登录，请
-                    <button class="login-btn"><a href="{% url 'login' %}?next={{ request.path }}">登录</a></button>
-                    或者
-                    <button class="register-btn"><a href="{% url 'user:register' %}?next={{ request.path }}">注册</a>
-                    </button>
-                </p>
-            {% endif %}
-        </div>
-        <h2 id="mnavh"><span class="navicon"></span></h2>
-        <ul id="starlist">
-            <li><a href="{% url 'blog:index' %}">网站首页</a></li>
-            <li><a href="#">技术探讨</a></li>
-            <li><a href="{% url 'gallery:show' %}">慢生活</a></li>
-            <li><a href="{% url 'blog:about' %}">关于我</a></li>
-            {% if user.is_authenticated %}
-                <li>
-                    <button class="login-btn"><a href="{% url 'logout' %}?next={{ request.path }}">退出</a></button>
-                </li>
-            {% else %}
-                <p></p>
-            {% endif %}
-        </ul>
-    </div>
-    <script>
-        window.onload = function () {
-            var oH2 = document.getElementById("mnavh");
-            var oUl = document.getElementById("starlist");
-            oH2.onclick = function () {
-                var style = oUl.style;
-                style.display = style.display == "block" ? "none" : "block";
-                oH2.className = style.display == "block" ? "open" : ""
-            }
-        }
-    </script>
-</header>
+{% include 'header.html'%}
 <div class="line46"></div>
 <article>
     {% block ViewSlider %}
-        <!-- 轮播图片 -->
+    <!-- 轮播图片 -->
     {% endblock %}
 
     <div class="leftbox">
@@ -110,8 +72,6 @@
         </div>
     </div>
 </article>
-<footer>
-    <p>Copyright © 2018 SamBrother的博客 | 粤ICP备00000000号-1</p>
-</footer>
+{% include 'footer.html'%}
 </body>
 </html>
