@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <title>个人信息</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
+{% include 'header.html' %}
 <div class="row text-center vertical-middle-sm">
     <h1>My Information</h1>
     <div class="row">
@@ -53,10 +55,10 @@
                 {% endif %}
             </div>
             <div style="margin: 40px 100px 0 auto">
-                <button class="btn btn-primary btn-lg" id="upload_image" onclick="upload_image_layer()">upload my
-                    photo
+                <button class="btn btn-primary btn-lg" id="upload_image" onclick="upload_image_layer()">
+                    上传图像
                 </button>
-            </div> ma
+            </div>
         </div>
     </div>
 </div>
@@ -72,5 +74,6 @@
         })
     }
 </script>
+{% include 'footer.html' %}
 </body>
 </html>

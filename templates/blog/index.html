@@ -73,7 +73,7 @@
                 {% for blog in blog_list.object_list %}
                     <li>
                         <h3 class="blogtitle">
-                            <a href="{{ blog.get_absolute_url }}" target="_blank">{{ blog.title }}</a>
+                            <a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a>
                         </h3>
                         <div class="bloginfo">
                             <span class="blogpic">
@@ -127,16 +127,23 @@
         <h2 class="ab_title">关于我</h2>
         <div class="avatar">
             {% if user.is_authenticated %}
-                <img src="/media/{{ user.profile.img }}"/>
+                <img src="{{ user.profile.img }}"/>
             {% else %}
-                <img src="{% static 'images/img.jpg' %}">
+                <img src="{% static 'images/avatar.jpg' %}">
             {% endif %}
         </div>
         <div class="ab_con">
-            <p>网名：SamBrother</p>
-            <p>职业：码农、业余厨子 </p>
-            <p>现居：广东/珠海</p>
-            <p>邮箱：dave.woo@qq.com</p>
+            {% if user.is_authenticated %}
+                <p><b>网名：</b>SamBrother</p>
+                <p><b>职业：</b>{{ user.profession }} </p>
+                <p><b>现居：</b>{{ user.address }}</p>
+                <p><b>邮箱：</b>{{ user.email }}</p>
+            {% else %}
+                <p><b>网名：</b>***</p>
+                <p><b>职业：</b>*** </p>
+                <p><b>现居：</b>***</p>
+                <p><b>邮箱：</b>***</p>
+            {% endif %}
         </div>
     </div>
     <div class="blank"></div>

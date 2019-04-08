@@ -16,8 +16,8 @@
         <ul id="starlist">
             <li><a href="{% url 'blog:index' %}">网站首页</a></li>
             <li><a href="#">技术探讨</a></li>
-            <li><a href="{% url 'gallery:show' %}">慢生活</a></li>
-            <li><a href="{% url 'blog:about' %}">关于我</a></li>
+            <li><a href="{% url 'gallery:show' %}">图集</a></li>
+            <li><a href="{% url 'user:profile' %}">关于我</a></li>
             {% if user.is_authenticated %}
             <li>
                 <button class="login-btn"><a href="{% url 'logout' %}?next={{ request.path }}">退出</a></button>
