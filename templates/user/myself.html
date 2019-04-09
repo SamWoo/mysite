@@ -7,19 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content=""/>
-    <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
     <!-- Custom Theme files -->
     <link href="{% static 'css/bootstrap.css' %}" type="text/css" rel="stylesheet" media="all">
     <link href="{% static 'css/style_about.css' %}" type="text/css" rel="stylesheet" media="all">
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">        <!-- font-awesome icons -->
     <link rel="stylesheet" href="{% static 'css/swipebox.css' %}">    <!-- swipebox -->
-{#    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">#}
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
     <!-- //Custom Theme files -->
     <!-- js -->
     <script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
@@ -34,7 +28,6 @@
 {% include 'header.html' %}
 <div class="line46"></div>
 <div class="banner-w3lsinfo">
-    <h2>个人信息</h2>
     <div class="container">
         <div class="col-md-4 header-w3left">
             <!--img src="{% static 'images/img1.jpg' %}" alt=""/-->
@@ -47,7 +40,7 @@
                      id="my_avatar">
             {% endif %}
             <div class="header-imgtext-w3ls">
-                <h1>Adeline Doe</h1>
+                <h1 style="color: #0b0b0b">{{ user.username }}</h1>
                 <div class="social-wthree-icons">
                     <ul>
                         <li><a href="#" class="fa fa-facebook icon icon-border facebook"> </a></li>
@@ -60,9 +53,9 @@
             </div>
         </div>
         <div class="col-md-8 header-w3right">
-            <h3 class="agileits-title">ABOUT ME</h3>
+            <h3 class="agileits-title">个人信息</h3>
             <div class="profile-agileinfo">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet sem sit amet dolor
+                <p style="color: #0b0b0b">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet sem sit amet dolor
                     luctus pellentesque. Pellentesque eleifend tellus at interdum elementum. Nam egestas molestie
                     elit. Vivamus sed accumsan quam, a mollis magna. Nam aliquet eros eget sapien consequat
                     tincidunt at vel nibh. Duis ut turpis mi. Duis nec scelerisque urna, sit amet varius arcu.
