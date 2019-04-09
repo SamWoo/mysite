@@ -5,73 +5,60 @@
 <head>
     <meta charset="utf-8">
     {% block title %}
-        <title>Sam's Blog</title>
     {% endblock %}
     <meta name="keywords" content="个人博客"/>
-    <meta name="description" content="被编程耽误的小厨子"/>
+    <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css">
-{#    <link rel="stylesheet" href="{% static 'css/github.css' %}" type="text/css">#}
-    <link rel="stylesheet" href="{% static 'css/monokai.css' %}" type="text/css">
-{#    <link rel="stylesheet" href="{% static 'css/code.css' %}" type="text/css">#}
-    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/m.css' %}" rel="stylesheet" type="text/css">
-{#    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">#}
-    <!--[if lt IE 9]>
-    <script src="js/modernizr.js"></script>
-    <![endif]-->
-    <script src="{% static 'js/page.js' %}" type="text/javascript"></script>
-    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
-
+    {% block css %}
+        <link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css">
+        {#    <link rel="stylesheet" href="{% static 'css/github.css' %}" type="text/css">#}
+        <link rel="stylesheet" href="{% static 'css/monokai.css' %}" type="text/css">
+        {#    <link rel="stylesheet" href="{% static 'css/code.css' %}" type="text/css">#}
+        <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/m.css' %}" rel="stylesheet" type="text/css">
+        {#    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">#}
+    {% endblock %}
+    {% block js %}
+        <!--[if lt IE 9]>
+        <script src="js/modernizr.js"></script>
+        <![endif]-->
+        <script src="{% static 'js/page.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    {% endblock %}
 </head>
 <body>
 {% include 'header.html' %}
 <div class="line46"></div>
 <article>
+    <!-- 轮播图片 -->
     {% block ViewSlider %}
-        <!-- 轮播图片 -->
     {% endblock %}
 
-    <div class="leftbox">
-        <!--  左边 -->
-        {% block leftbox %}
-        {% endblock %}
-    </div>
-    <div class="rightbox">
-        <!--  关于 -->
-        {% block aboutme %}
-        {% endblock %}
+    <!--  左边 -->
+    {% block leftbox %}
+    {% endblock %}
 
-        <div class="search">
-            <form action="{% url 'blog:search' %}" method="get" name="searchform" id="searchform">
-                <input name="keywords" id="keywords" class="input_text" value="请输入关键字"
-                       style="color: rgb(153, 153, 153);"
-                       onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}"
-                       onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
-                <input name="show" value="title" type="hidden">
-                <input name="tempid" value="1" type="hidden">
-                <input name="tbname" value="news" type="hidden">
-                <input name="Submit" class="input_submit" value="搜索" type="submit">
-            </form>
-        </div>
-        <!--  排行 -->
-        {% block paihang %}
-        {% endblock %}
+    <!--  右边 -->
+    {% block rightbox %}
+        <div class="rightbox">
+            <!--  关于 -->
+            {% block aboutme %}
+            {% endblock %}
 
-        <div class="links">
-            <h2 class="ab_title">友情链接</h2>
-            <ul>
-                <li><a href="https://www.jianshu.com/u/dbf000a341eb">个人简书</a></li>
-                <li><a href="/">优秀个人博客</a></li>
-            </ul>
+            <!-- 搜索 -->
+            {% block search %}
+            {% endblock %}
+
+            <!--  排行 -->
+            {% block paihang %}
+            {% endblock %}
+
+            <!-- 友情链接 -->
+            {% block links %}
+            {% endblock %}
+
         </div>
-        <div class="weixin">
-            <h2 class="ab_title">微信关注</h2>
-            <ul>
-                <img src="{% static 'images/wx.jpg' %}">
-            </ul>
-        </div>
-    </div>
+    {% endblock %}
 </article>
 {% include 'footer.html' %}
 </body>

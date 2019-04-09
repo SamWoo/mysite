@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load blog_tags %}
+<!-- 标题 -->
+{% block title %}
+    <title>Sam's Blog</title>
+{% endblock %}
+
+<!--  轮播图 -->
 {% block ViewSlider %}
     <div class="blank"></div>
     <div class="container">
@@ -64,60 +70,77 @@
         });
     </script>
 {% endblock %}
+
 <!-- 左边 -->
 {% block leftbox %}
-    <div class="newblogs">
-        <h2 class="hometitle">最新文章</h2>
-        <ul>
-            <div class="bloglist">
-                {% for blog in blog_list.object_list %}
-                    <li>
-                        <h3 class="blogtitle">
-                            <a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a>
-                        </h3>
-                        <div class="bloginfo">
+    <div class="leftbox">
+        <div class="newblogs">
+            {% block hometitle %}
+                <h2 class="hometitle">最新文章</h2>
+            {% endblock %}
+            <ul>
+                <div class="bloglist">
+                    {% for blog in blog_list.object_list %}
+                        <li>
+                            <h3 class="blogtitle">
+                                <a href="{{ blog.get_absolute_url }}" target="_blank">{{ blog.title }}</a>
+                            </h3>
+                            <div class="bloginfo">
                             <span class="blogpic">
                                 <img src="{{ blog.thumb_img }}"/>
                             </span>
-                            <p>{{ blog.excerpt }}...</p>
-                        </div>
-                        <div class="autor">
-                            <span class="category">分类<a href="/" target="_blank">{{ blog.category.name }}</a></span>
-                            <span class="dtime f_1">{{ blog.create_time }}</span>
-                            <span class="viewnum f_1">点击<a href="/" target="_blank">（{{ blog.click_nums }}）</a></span>
-                            <span class="comment">评论<a href="/"
-                                                       target="_blank">（{{ blog.comment_set.count }}）</a></span>
-                            <span class="read-more cl-effect-14">
-                                <a href="{{ blog.get_absolute_url }}" class="more-link"
+                                <p>{{ blog.excerpt }}...</p>
+                            </div>
+                            <div class="autor">
+                                <span class="category" style="color: #00A000">{{ blog.category.name }}</span>
+                                <span class="dtime f_1">{{ blog.create_time }}</span>
+                                <span class="viewnum f_1">点击（<a>{{ blog.click_nums }}</a>)</span>
+                                <span class="comment">评论（<a>{{ blog.comment_set.count }}</a>）</span>
+                                <span class="read-more cl-effect-14">
+                                <a href="{{ blog.get_absolute_url }}" class="more-link" target="_blank"
                                    style="float: right">继续阅读 >>> </a>
                             </span>
-                        </div>
-                    </li>
-                {% endfor %}
-            </div>
-        </ul>
-        <!--分页展示-->
-        <ul class="pagelist">
-            {% if blog_list.has_previous %}
-                <a href="?{{ blog_list.previous_page_number.querystring }}">上一页</a>
-            {% endif %}
-
-            {% for page in blog_list.pages %}
-                {% if page %}
-                    {% ifequal page blog_list.number %}
-                        <a href="?{{ page.querystring }}">{{ page }}</a>
-                    {% else %}
-                        <a href="?{{ page.querystring }}">{{ page }}</a>
-                    {% endifequal %}
-                {% else %}
-                    <a href="">...</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </div>
+            </ul>
+            <!--分页展示-->
+            <ul class="pagelist">
+                {% if blog_list.has_previous %}
+                    <a href="?{{ blog_list.previous_page_number.querystring }}">上一页</a>
                 {% endif %}
-            {% endfor %}
 
-            {% if blog_list.has_next %}
-                <a href="?{{ blog_list.next_page_number.querystring }}">下一页</a>
-            {% endif %}
-        </ul>
+                {% for page in blog_list.pages %}
+                    {% if page %}
+                        {% ifequal page blog_list.number %}
+                            <a href="?{{ page.querystring }}">{{ page }}</a>
+                        {% else %}
+                            <a href="?{{ page.querystring }}">{{ page }}</a>
+                        {% endifequal %}
+                    {% else %}
+                        <a href="">...</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if blog_list.has_next %}
+                    <a href="?{{ blog_list.next_page_number.querystring }}">下一页</a>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- 搜索 -->
+{% block search %}
+    <div class="search">
+        <form action="{% url 'blog:search' %}" method="get" name="searchform" id="searchform">
+            <input name="keywords" id="keywords" class="input_text" value="请输入关键字"
+                   style="color: rgb(153, 153, 153);"
+                   onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}"
+                   onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
+            <input name="Submit" class="input_submit" value="搜索" type="submit">
+        </form>
     </div>
 {% endblock %}
 
@@ -158,7 +181,7 @@
             {% for category in category_list %}
                 <li>
                     <a href="{% url 'blog:category' category.pk %}">{{ category.name }}
-                        <span class="post-count">({{ category.num_blogs }})</span>
+                        (<span class="post-count" style="color: #00A000">{{ category.num_blogs }}</span>)
                     </a>
                 </li>
             {% empty %}
@@ -203,6 +226,23 @@
             {% empty %}
                 暂无标签！
             {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+<!-- 友情链接 -->
+{% block links %}
+    <div class="links">
+        <h2 class="ab_title">友情链接</h2>
+        <ul>
+            <li><a href="https://www.jianshu.com/u/dbf000a341eb">个人简书</a></li>
+            <li><a href="/">优秀个人博客</a></li>
+        </ul>
+    </div>
+    <div class="weixin">
+        <h2 class="ab_title">微信关注</h2>
+        <ul>
+            <img src="{% static 'images/wx.jpg' %}">
         </ul>
     </div>
 {% endblock %}

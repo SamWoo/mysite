@@ -1,111 +1,147 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load blog_tags %}
-
-{% block leftbox %}
-    <div class="infos">
-        <div class="newsview">
-            <h2 class="intitle">您现在的位置是：<a href="/">网站首页</a>&nbsp;&gt;&nbsp;<a href="/">{{ blog.category.name }}</a>
-            </h2>
-            <h3 class="news_title">{{ blog.title }}</h3>
-            <div class="news_author">
-                <span class="au02">{{ blog.create_time }}</span>
-                <span class="au01"><b>{{ blog.comment_set.count }}</b>&nbsp;条评论</span>
-                <span class="au03">共<b>{{ blog.click_nums }}</b>人围观</span>
-            </div>
-            <div class="tags">
-                {% for tag in blog.tag.all %}
-                    <a href="/" target="_blank">{{ tag.name }}</a>
-                {% endfor %}
-            </div>
-            <div class="news_infos">
-                {{ blog.content|safe }}
-            </div>
-        </div>
-        <div class="share">
-            <p class="diggit">
-                <a href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');">
-                    很赞哦！
-                </a>(<b id="diggnum">
-                <script type="text/javascript" src="/e/public/ViewClick/?classid=2&amp;id=20&amp;down=5"></script>
-                13</b>)
-            </p>
-            <p class="dasbox">
-                <a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏本站</a>
-            </p>
-            <div class="hide_box" style="display: none;"></div>
-            <div class="shang_box" style="display: none;">
-                <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()" title="关闭">关闭</a>
-                <div class="shang_tit">
-                    <p>感谢您的支持，我会继续努力的!</p>
-                </div>
-                <div class="shang_payimg"><img src="{% static 'images/alipayimg.jpg' %}" alt="扫码支持" title="扫一扫">
-                </div>
-                <div class="pay_explain">扫码打赏，你说多少就多少</div>
-                <div class="shang_payselect">
-                    <div class="pay_item checked" data-id="alipay">
-                        <span class="radiobox"></span>
-                        <span class="pay_logo">
-                                <img src="{% static 'images/alipay.jpg' %}" alt="支付宝">
-                            </span>
-                    </div>
-                    <div class="pay_item" data-id="weipay">
-                        <span class="radiobox"></span>
-                        <span class="pay_logo">
-                                <img src="{% static 'images/wechat.jpg' %}" alt="微信">
-                            </span>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    $(function () {
-                        $(".pay_item").click(function () {
-                            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
-                            var dataid = $(this).attr('data-id');
-                            $(".shang_payimg img").attr("src", "images/" + dataid + "img.jpg");
-                            $("#shang_pay_txt").text(dataid == "alipay" ? "支付宝" : "微信");
-                        });
-                    });
-
-                    function dashangToggle() {
-                        $(".hide_box").fadeToggle();
-                        $(".shang_box").fadeToggle();
-                    }
-                </script>
-            </div>
-        </div>
-        <!--share end-->
-        <div class="zsm">
-            <p>打赏本站，你说多少就多少</p>
-            <img src="{% static 'images/zsm.jpg' %}">
-        </div>
-    </div>
-    <div class="nextinfo">
-        {% if previous_blog %}
-            <p>上一篇：<a class="prev" href="{{ previous_blog.get_absolute_url }}">
-                {{ previous_blog.title }}</a>
-            </p>
-        {% endif %}
-        {% if previous_blog %}
-            <p>下一篇：<a class="next" href="{{ next_blog.get_absolute_url }}">
-                {{ next_blog.title }}</a>
-            </p>
-        {% endif %}
-    </div>
-    <div class="otherlink">
-        <h2>相关文章</h2>
-        <ul>
-            <li><a href="/" title="云南之行――丽江古镇玉龙雪山">云南之行――丽江古镇玉龙雪山</a></li>
-            <li><a href="/" title="云南之行――大理洱海一日游">云南之行――大理洱海一日游</a></li>
-            <li><a href="/" target="_blank">住在手机里的朋友</a></li>
-            <li><a href="/" target="_blank">豪雅手机正式发布! 在法国全手工打造的奢侈品</a></li>
-            <li><a href="/" target="_blank">教你怎样用欠费手机拨打电话</a></li>
-            <li><a href="/" target="_blank">原来以为，一个人的勇敢是，删掉他的手机号码...</a></li>
-        </ul>
-    </div>
-    {% include 'comment/comments.html' %}
+<!-- 标题 -->
+{% block title %}
+    <title>Sam's Blog</title>
 {% endblock %}
 
+<!-- 左边 -->
+{% block leftbox %}
+    <div class="leftbox">
+        <div class="infos">
+            <div class="newsview">
+                <h2 class="intitle">您现在的位置是：<a href="/">网站首页</a>&nbsp;&gt;&nbsp;<a href="/">{{ blog.category.name }}</a>
+                </h2>
+                <h3 class="news_title">{{ blog.title }}</h3>
+                <div class="news_author">
+                    <span class="au02">{{ blog.create_time }}</span>
+                    <span class="au01"><b style="color: #aa0000">{{ blog.comment_set.count }}</b>&nbsp;条评论</span>
+                    <span class="au03">共<b style="color: #0000FF">{{ blog.click_nums }}</b>人围观</span>
+                </div>
+                <div class="tags">
+                    {% for tag in blog.tag.all %}
+                        <a href="/" target="_blank">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+                <div class="news_infos">
+                    {{ blog.content|safe }}
+                </div>
+            </div>
+            <div class="share">
+                <p class="diggit">
+                    <a href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');">
+                        很赞哦！
+                    </a>(<b id="diggnum">
+                    <script type="text/javascript" src="/e/public/ViewClick/?classid=2&amp;id=20&amp;down=5"></script>
+                    13</b>)
+                </p>
+                <p class="dasbox">
+                    <a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏本站</a>
+                </p>
+                <div class="hide_box" style="display: none;"></div>
+                <div class="shang_box" style="display: none;">
+                    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()" title="关闭">关闭</a>
+                    <div class="shang_tit">
+                        <p>感谢您的支持，我会继续努力的!</p>
+                    </div>
+                    <div class="shang_payimg"><img src="{% static 'images/alipayimg.jpg' %}" alt="扫码支持" title="扫一扫">
+                    </div>
+                    <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                    <div class="shang_payselect">
+                        <div class="pay_item checked" data-id="alipay">
+                            <span class="radiobox"></span>
+                            <span class="pay_logo">
+                                <img src="{% static 'images/alipay.jpg' %}" alt="支付宝">
+                            </span>
+                        </div>
+                        <div class="pay_item" data-id="weipay">
+                            <span class="radiobox"></span>
+                            <span class="pay_logo">
+                                <img src="{% static 'images/wechat.jpg' %}" alt="微信">
+                            </span>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $(".pay_item").click(function () {
+                                $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+                                var dataid = $(this).attr('data-id');
+                                $(".shang_payimg img").attr("src", "images/" + dataid + "img.jpg");
+                                $("#shang_pay_txt").text(dataid == "alipay" ? "支付宝" : "微信");
+                            });
+                        });
+
+                        function dashangToggle() {
+                            $(".hide_box").fadeToggle();
+                            $(".shang_box").fadeToggle();
+                        }
+                    </script>
+                </div>
+            </div>
+            <!--share end-->
+            <div class="zsm">
+                <p>打赏本站，你说多少就多少</p>
+                <img src="{% static 'images/zsm.jpg' %}">
+            </div>
+        </div>
+        <div class="nextinfo">
+            {% if previous_blog %}
+                <p>上一篇：<a class="prev" href="{{ previous_blog.get_absolute_url }}">
+                    {{ previous_blog.title }}</a>
+                </p>
+            {% endif %}
+            {% if previous_blog %}
+                <p>下一篇：<a class="next" href="{{ next_blog.get_absolute_url }}">
+                    {{ next_blog.title }}</a>
+                </p>
+            {% endif %}
+        </div>
+        <div class="otherlink">
+            <h2>相关文章</h2>
+            <ul>
+                <li><a href="/" title="云南之行――丽江古镇玉龙雪山">云南之行――丽江古镇玉龙雪山</a></li>
+                <li><a href="/" title="云南之行――大理洱海一日游">云南之行――大理洱海一日游</a></li>
+                <li><a href="/" target="_blank">住在手机里的朋友</a></li>
+                <li><a href="/" target="_blank">豪雅手机正式发布! 在法国全手工打造的奢侈品</a></li>
+                <li><a href="/" target="_blank">教你怎样用欠费手机拨打电话</a></li>
+                <li><a href="/" target="_blank">原来以为，一个人的勇敢是，删掉他的手机号码...</a></li>
+            </ul>
+        </div>
+        {% include 'comment/comments.html' %}
+    </div>
+{% endblock %}
+
+<!-- 搜索 -->
+{% block search %}
+    <div class="search">
+        <form action="{% url 'blog:search' %}" method="get" name="searchform" id="searchform">
+            <input name="keywords" id="keywords" class="input_text" value="请输入关键字"
+                   style="color: rgb(153, 153, 153);"
+                   onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}"
+                   onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
+            <input name="Submit" class="input_submit" value="搜索" type="submit">
+        </form>
+    </div>
+{% endblock %}
+
+<!-- 排行 -->
 {% block paihang %}
+    <div class="paihang">
+        <h2 class="ab_title"><p>博客分类</p></h2>
+        {% get_categories as category_list %}
+        <ul class="news">
+            {% for category in category_list %}
+                <li>
+                    <a href="{% url 'blog:category' category.pk %}">{{ category.name }}
+                        (<span class="post-count" style="color: #00A000">{{ category.num_blogs }}</span>)
+                    </a>
+                </li>
+            {% empty %}
+                暂无分类！
+            {% endfor %}
+        </ul>
+    </div>
     <div class="paihang">
         <h2 class="ab_title"><p>近期文章</p></h2>
         {% get_recent_blogs as recent_blog_list %}
@@ -117,6 +153,49 @@
             {% empty %}
                 暂无文章！
             {% endfor %}
+        </ul>
+    </div>
+    <div class="paihang">
+        <h2 class="ab_title"><p>文章归档</p></h2>
+        {% get_archives as date_list %}
+        <ul class="news">
+            {% for date in date_list %}
+                <li>
+                    <a href="{% url 'blog:archives' date.year date.month %}">
+                        {{ date.year }} 年 {{ date.month }} 月
+                    </a>
+                </li>
+            {% empty %}
+                暂无归档！
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="paihang">
+        <h2 class="ab_title"><p>标签云</p></h2>
+        {% get_tags as tags_list %}
+        <ul class="tags">
+            {% for tag in tags_list %}
+                <span><a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a></span>
+            {% empty %}
+                暂无标签！
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+<!-- 友情链接 -->
+{% block links %}
+    <div class="links">
+        <h2 class="ab_title">友情链接</h2>
+        <ul>
+            <li><a href="https://www.jianshu.com/u/dbf000a341eb">个人简书</a></li>
+            <li><a href="/">优秀个人博客</a></li>
+        </ul>
+    </div>
+    <div class="weixin">
+        <h2 class="ab_title">微信关注</h2>
+        <ul>
+            <img src="{% static 'images/wx.jpg' %}">
         </ul>
     </div>
 {% endblock %}

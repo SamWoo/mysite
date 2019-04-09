@@ -1,119 +1,75 @@
-{% extends 'base.html' %}
+{% extends 'blog/index.html' %}
 {% load staticfiles %}
 {% load blog_tags %}
 
+<!--  轮播图 -->
+{% block ViewSlider %}
+{% endblock %}
+
 <!-- 左边 -->
 {% block leftbox %}
-    <div class="newblogs">
-        <h2 class="hometitle">关于“<strong>{{ keywords }}</strong>”的博文如下：</h2>
-        <ul>
-            <div class="bloglist">
-                {% for blog in blog_list.object_list %}
-                    <li>
-                        <h3 class="blogtitle">
-                            <a href="{{ blog.get_absolute_url }}" target="_blank">{{ blog.title }}</a>
-                        </h3>
-                        <div class="bloginfo">
+    <div class="leftbox">
+        <div class="newblogs">
+            <h2 class="hometitle">关于“<strong>{{ keywords }}</strong>”的博文如下：</h2>
+            <ul>
+                <div class="bloglist">
+                    {% for blog in blog_list.object_list %}
+                        <li>
+                            <h3 class="blogtitle">
+                                <a href="{{ blog.get_absolute_url }}" target="_blank">{{ blog.title }}</a>
+                            </h3>
+                            <div class="bloginfo">
                             <span class="blogpic">
                                 <img src="{{ blog.thumb_img }}"/>
                             </span>
-                            <p>{{ blog.excerpt }}...</p>
-                        </div>
-                        <div class="autor">
-                            <span class="category">分类<a href="/" target="_blank">{{ blog.category.name }}</a></span>
-                            <span class="dtime f_1">{{ blog.create_time }}</span>
-                            <span class="viewnum f_1">点击<a href="/" target="_blank">（{{ blog.click_nums }}）</a></span>
-                            <span class="comment">评论<a href="/"
-                                                       target="_blank">（{{ blog.comment_set.count }}）</a></span>
-                            <span class="read-more cl-effect-14">
+                                <p>{{ blog.excerpt }}...</p>
+                            </div>
+                            <div class="autor">
+                                <span class="category">分类<a href="/" target="_blank">{{ blog.category.name }}</a></span>
+                                <span class="dtime f_1">{{ blog.create_time }}</span>
+                                <span class="viewnum f_1">点击<a href="/"
+                                                               target="_blank">（{{ blog.click_nums }}）</a></span>
+                                <span class="comment">评论<a href="/"
+                                                           target="_blank">（{{ blog.comment_set.count }}）</a></span>
+                                <span class="read-more cl-effect-14">
                                 <a href="{{ blog.get_absolute_url }}" class="more-link"
                                    style="float: right">继续阅读 >>> </a>
                             </span>
-                        </div>
-                    </li>
-                {% endfor %}
-            </div>
-        </ul>
-        <!--分页展示-->
-        <ul class="pagelist">
-            {% if blog_list.has_previous %}
-                <a href="?{{ blog_list.previous_page_number.querystring }}">上一页</a>
-            {% endif %}
-
-            {% for page in blog_list.pages %}
-                {% if page %}
-                    {% ifequal page blog_list.number %}
-                        <a href="?{{ page.querystring }}">{{ page }}</a>
-                    {% else %}
-                        <a href="?{{ page.querystring }}">{{ page }}</a>
-                    {% endifequal %}
-                {% else %}
-                    <a href="">...</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </div>
+            </ul>
+            <!--分页展示-->
+            <ul class="pagelist">
+                {% if blog_list.has_previous %}
+                    <a href="?{{ blog_list.previous_page_number.querystring }}">上一页</a>
                 {% endif %}
-            {% endfor %}
 
-            {% if blog_list.has_next %}
-                <a href="?{{ blog_list.next_page_number.querystring }}">下一页</a>
-            {% endif %}
-        </ul>
+                {% for page in blog_list.pages %}
+                    {% if page %}
+                        {% ifequal page blog_list.number %}
+                            <a href="?{{ page.querystring }}">{{ page }}</a>
+                        {% else %}
+                            <a href="?{{ page.querystring }}">{{ page }}</a>
+                        {% endifequal %}
+                    {% else %}
+                        <a href="">...</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if blog_list.has_next %}
+                    <a href="?{{ blog_list.next_page_number.querystring }}">下一页</a>
+                {% endif %}
+            </ul>
+        </div>
     </div>
 {% endblock %}
 
-<!-- 排行 -->
-{% block paihang %}
-    <div class="paihang">
-        <h2 class="ab_title"><p>博客分类</p></h2>
-        {% get_categories as category_list %}
-        <ul class="news">
-            {% for category in category_list %}
-                <li>
-                    <a href="{% url 'blog:category' category.pk %}">{{ category.name }}
-                        <span class="post-count">({{ category.num_blogs }})</span>
-                    </a>
-                </li>
-            {% empty %}
-                暂无分类！
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="paihang">
-        <h2 class="ab_title"><p>近期文章</p></h2>
-        {% get_recent_blogs as recent_blog_list %}
-        <ul class="news">
-            {% for blog in recent_blog_list %}
-                <li>
-                    <a href="{% url 'blog:detail' blog.pk %}">{{ blog.title }}</a>
-                </li>
-            {% empty %}
-                暂无文章！
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="paihang">
-        <h2 class="ab_title"><p>文章归档</p></h2>
-        {% get_archives as date_list %}
-        <ul class="news">
-            {% for date in date_list %}
-                <li>
-                    <a href="{% url 'blog:archives' date.year date.month %}">
-                        {{ date.year }} 年 {{ date.month }} 月
-                    </a>
-                </li>
-            {% empty %}
-                暂无归档！
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="paihang">
-        <h2 class="ab_title"><p>标签云</p></h2>
-        {% get_tags as tags_list %}
-        <ul class="tags">
-            {% for tag in tags_list %}
-                <span><a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a></span>
-            {% empty %}
-                暂无标签！
-            {% endfor %}
-        </ul>
-    </div>
+<!-- 关于 -->
+{% block aboutme %}
 {% endblock %}
 
+<!-- 友情链接 -->
+{% block links %}
+{% endblock %}
