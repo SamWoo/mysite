@@ -8,7 +8,7 @@
 
 <!--  轮播图 -->
 {% block ViewSlider %}
-    <div class="blank"></div>
+
     <div class="container">
         <ul id="partial-view">
             <li>
@@ -86,9 +86,9 @@
                                 <a href="{{ blog.get_absolute_url }}" target="_blank">{{ blog.title }}</a>
                             </h3>
                             <div class="bloginfo">
-                            <span class="blogpic">
-                                <img src="{{ blog.thumb_img }}"/>
-                            </span>
+                                <span class="blogpic">
+                                    <img src="{{ blog.thumb_img }}"/>
+                                </span>
                                 <p>{{ blog.excerpt }}...</p>
                             </div>
                             <div class="autor">
@@ -99,7 +99,7 @@
                                 <span class="read-more cl-effect-14">
                                 <a href="{{ blog.get_absolute_url }}" class="more-link" target="_blank"
                                    style="float: right">继续阅读 >>> </a>
-                            </span>
+                                </span>
                             </div>
                         </li>
                     {% endfor %}
@@ -149,15 +149,17 @@
     <div class="aboutme">
         <h2 class="ab_title">关于我</h2>
         <div class="avatar">
-            {% if user.is_authenticated %}
-                <img src="{{ user.profile.img }}"/>
+            {% if user.is_authenticated and user.profile.img %}
+                <a href="{% url 'user:profile' %}">
+                    <img src="{{ user.profile.img }}" alt="暂无图像"/>
+                </a>
             {% else %}
                 <img src="{% static 'images/avatar.jpg' %}">
             {% endif %}
         </div>
         <div class="ab_con">
             {% if user.is_authenticated %}
-                <p><b>网名：</b>SamBrother</p>
+                <p><b>网名：</b>{{ user.userinfo.nickname }}</p>
                 <p><b>职业：</b>{{ user.profession }} </p>
                 <p><b>现居：</b>{{ user.address }}</p>
                 <p><b>邮箱：</b>{{ user.email }}</p>

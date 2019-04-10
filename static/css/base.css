@@ -48,8 +48,8 @@ a {
     float: right
 }
 
-.line46 {
-    height: 46px;
+.line64 {
+    height: 64px;
     width: 100%
 }
 
@@ -59,22 +59,23 @@ header {
     width: 100%;
     color: #FFF;
     background: #333;
-    line-height: 46px;
+    line-height: 64px;
     overflow: hidden;
     position: fixed;
     top: 0;
     z-index: 100
 }
 
-.login {
+.user-login {
     float: left;
-    font-size: 14px
+    font-size: 14px;
 }
 
 #username a {
-    font-size: 22px;
+    font-size: 24px;
     color: white;
     font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .login-btn {
@@ -119,6 +120,7 @@ header {
 
 #starlist {
     float: right;
+    margin-right: 10px;
 }
 
 #starlist a {
@@ -129,7 +131,8 @@ header {
     float: left;
     display: block;
     padding: 0 0 0 40px;
-    font-size: 16px
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #starlist li:hover a {
@@ -205,6 +208,7 @@ footer {
     width: 100%;
     background: #333;
     color: #a5a4a4;
+    line-height: 32px;
     text-align: center;
     padding: 20px 0;
     position: relative;

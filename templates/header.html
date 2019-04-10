@@ -1,15 +1,15 @@
 <header>
     <div id="mnav">
-        <div class="login">
+        <div class="user-login">
             {% if user.is_authenticated %}
-            <p id="username"><a href="#">{{ user.username }}</a>，欢迎你！！</p>
+                <p id="username"><a href="#">{{ user.username }}</a>，欢迎你!</p>
             {% else %}
-            <p>你还没有登录，请
-                <button class="login-btn"><a href="{% url 'login' %}?next={{ request.path }}">登录</a></button>
-                或者
-                <button class="register-btn"><a href="{% url 'user:register' %}?next={{ request.path }}">注册</a>
-                </button>
-            </p>
+                <p>你还没有登录，请
+                    <button class="login-btn"><a href="{% url 'login' %}?next={{ request.path }}">登录</a></button>
+                    或者
+                    <button class="register-btn"><a href="{% url 'user:register' %}?next={{ request.path }}">注册</a>
+                    </button>
+                </p>
             {% endif %}
         </div>
         <h2 id="mnavh"><span class="navicon"></span></h2>
@@ -17,13 +17,16 @@
             <li><a href="{% url 'blog:index' %}">网站首页</a></li>
             <li><a href="#">技术探讨</a></li>
             <li><a href="{% url 'gallery:show' %}">图集</a></li>
-            <li><a href="{% url 'user:profile' %}">关于我</a></li>
+            <li><a href="#">影视</a></li>
+            <li><a href="#">音乐</a></li>
+            <!--li><a href="{% url 'user:profile' %}">关于我</a></li-->
             {% if user.is_authenticated %}
-            <li>
-                <button class="login-btn"><a href="{% url 'logout' %}?next={{ request.path }}">退出</a></button>
-            </li>
+                <li><a href="#">写博客</a></li>
+                <li>
+                    <button class="login-btn"><a href="{% url 'logout' %}?next={{ request.path }}">退出</a></button>
+                </li>
             {% else %}
-            <p></p>
+                <p></p>
             {% endif %}
         </ul>
     </div>

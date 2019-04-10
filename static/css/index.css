@@ -232,12 +232,16 @@ a.ayulan {
 }
 
 h3.blogtitle {
-    line-height: 30px;
+    line-height: 10px;
     margin: 10px 0;
 }
 
 h3.blogtitle:hover a {
     color: #000
+}
+
+.bloglist li{
+    margin: 4px 10px;
 }
 
 .blogpic {
@@ -581,7 +585,8 @@ h3.blogtitle:hover a {
 }
 
 .newsview {
-    padding: 20px
+    padding: 20px;
+    margin: 20px;
 }
 
 .intitle {
@@ -597,9 +602,10 @@ h3.blogtitle:hover a {
 
 .news_title {
     font-size: 24px;
-    font-weight: normal;
-    padding: 20px 0;
+    padding: 10px 0;
     color: #333;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .news_author {
@@ -659,10 +665,10 @@ h3.blogtitle:hover a {
 }
 
 .tags a {
-    background: #666666;
+    background: #66d9ef;
     padding: 3px 8px;
     margin: 0 5px 5px 0;
-    color: #fff;
+    color: white;
     display: inline-block;
     border-radius: 5px;
 }
@@ -672,9 +678,10 @@ h3.blogtitle:hover a {
 }
 
 .news_infos {
-    line-height: 24px;
+    line-height: 26px;
     text-align: justify;
-    padding: 20px 0
+    padding: 20px 0;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
 }
 
 .news_infos p {
@@ -684,7 +691,7 @@ h3.blogtitle:hover a {
 .news_infos img {
     max-width: 650px;
     height: auto;
-    padding: 8px;
+    padding: 10px;
 }
 
 .share {

@@ -184,3 +184,6 @@ AUTHENTICATION_BACKENDS = (
 )
 # 拓展User信息
 AUTH_PROFILE_MODULE = 'user.Profile'
+
+# login by admin:
+# admin/admin123456

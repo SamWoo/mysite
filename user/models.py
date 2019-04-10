@@ -16,6 +16,7 @@ class Profile(models.Model):
 
 class UserInfo(models.Model):
     user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=100, blank=True, default='渔舟唱晚')
     address = models.CharField(max_length=100, blank=True)
     profession = models.CharField(max_length=100, blank=True)
     aboutme = models.TextField(blank=True)
