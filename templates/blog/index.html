@@ -149,9 +149,13 @@
     <div class="aboutme">
         <h2 class="ab_title">关于我</h2>
         <div class="avatar">
-            {% if user.is_authenticated and user.profile.img %}
+            {% if user.is_authenticated %}
                 <a href="{% url 'user:profile' %}">
-                    <img src="{{ user.profile.img }}" alt="暂无图像"/>
+                    {% if user.profile.img %}
+                        <img src="{{ user.profile.img }}" alt="暂无图像"/>
+                    {% else %}
+                        <img src="{% static 'images/avatar.jpg' %}">
+                    {% endif %}
                 </a>
             {% else %}
                 <img src="{% static 'images/avatar.jpg' %}">
