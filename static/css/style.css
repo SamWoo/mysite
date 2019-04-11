@@ -138,7 +138,7 @@ samp {
     font-size: 1em;
 }
 
-button,
+/*button,*/
 input,
 optgroup,
 select,
@@ -1420,7 +1420,7 @@ body {
 }
 
 input,
-button,
+/*button,*/
 select,
 textarea {
     font-family: inherit;
@@ -1601,7 +1601,7 @@ h6, .h6 {
 }
 
 p {
-    margin: 0 0 10px;
+    /*margin: 0 0 10px;*/
 }
 
 .lead {
@@ -7887,7 +7887,7 @@ a:hover, a:active, a:focus {
 }
 
 p {
-    margin-bottom: 1.5em;
+    /*margin-bottom: 1.5em;*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -8049,8 +8049,8 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     width: 100%;
     position: relative;
-    padding-top: 4em;
-    padding-bottom: 4em;
+    /*padding-top: 4em;*/
+    /*padding-bottom: 4em;*/
 }
 
 @media screen and (max-width: 480px) {
@@ -8159,7 +8159,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-size: 20px;
+    font-size: 24px;
     font-family: "Montserrat", arial, sans-serif;
     color: #000;
 }
@@ -8255,7 +8255,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #fh5co-main {
-    padding-top: 5em;
+    padding-top: 1em;
 }
 
 #fh5co-board .item {

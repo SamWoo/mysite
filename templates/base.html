@@ -9,28 +9,22 @@
     <meta name="keywords" content="个人博客"/>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block css %}
-        <link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{% static 'css/monokai.css' %}" type="text/css">
-        <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
-        <link href="{% static 'css/m.css' %}" rel="stylesheet" type="text/css">
-        <!-- for profile -->
-        <link rel="stylesheet" href="{% static 'css/swipebox.css' %}">
-        <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" type="text/css">
-        <link rel="stylesheet" href="{% static 'css/profile.css' %}" type="text/css">
-        <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-        <!-- web-fonts -->
-        <link href="//fonts.googleapis.com/css?family=Kurale" rel="stylesheet">
-        <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-              rel='stylesheet' type='text/css'>
-        <!-- //web-fonts -->
-    {% endblock %}
-    {% block js %}
-        <!--[if lt IE 9]>
+    <link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/monokai.css' %}" type="text/css">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/m.css' %}" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
         <script src="js/modernizr.js"></script>
         <![endif]-->
-        <script src="{% static 'js/page.js' %}" type="text/javascript"></script>
-        <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/page.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+
+    <!-- load app(s) css -->
+    {% block css %}
+    {% endblock %}
+
+    <!-- load app(s) js -->
+    {% block js %}
     {% endblock %}
 </head>
 <body>

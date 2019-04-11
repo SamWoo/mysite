@@ -137,7 +137,7 @@ header {
 
 #starlist li:hover a {
     color: #009a61;
-    text-decoration: underline
+    text-decoration: none
 }
 
 .navicon {
@@ -149,7 +149,8 @@ header {
     margin-top: 20px
 }
 
-.navicon:before, .navicon:after {
+.navicon:before,
+.navicon:after {
     content: '';
     display: block;
     width: 30px;
@@ -213,8 +214,4 @@ footer {
     padding: 20px 0;
     position: relative;
     bottom: 0;
-}
-
-footer a {
-    color: #a5a4a4
 }
