@@ -2,37 +2,50 @@
 {% load staticfiles %}
 
 {% block title %}
-    <title>个人信息</title>
+<title>个人信息</title>
 {% endblock %}
 
 {% block leftbox %}
-    <div class="banner">
-        <div class="banner-w3lsinfo">
-            <div class="container">
-                <div class="col-md-4 header-w3left">
-                    <img src="{{ user.profile.img }}" alt=""/>
-                    <div class="header-imgtext-w3ls">
-                        <h1>{{ user.username }}</h1>
-                        <div class="social-wthree-icons">
-                            <ul>
-                                <li><a href="#" class="fa fa-facebook icon icon-border facebook"> </a></li>
-                                <li><a href="#" class="fa fa-twitter icon icon-border twitter"> </a></li>
-                                <li><a href="#" class="fa fa-google-plus icon icon-border googleplus"> </a></li>
-                                <li><a href="#" class="fa fa-dribbble icon icon-border dribbble"> </a></li>
-                            </ul>
-                            <div class="clearfix"></div>
+<div class="banner">
+    <div class="banner-w3lsinfo">
+        <div class="container">
+            <div class="col-md-4 header-w3left">
+                {% if userprofile.img %}
+                <img name="user_avatar" src="{{ userprofile.img | striptags }}" class="img-thumbnail"
+                     width="270px"
+                     id="my_avatar">
+                {% else %}
+                <img name="user_avatar" src="{% static '/images/avatar.jpg' %}" class="img-circle" width="270px"
+                     id="my_avatar">
+                {% endif %}
+                <div class="header-imgtext-w3ls">
+                    <h1>{{ user.username }}</h1>
+                    <div class="social-wthree-icons">
+                        <ul>
+                            <li><a href="#" class="fa fa-facebook icon icon-border facebook"> </a></li>
+                            <li><a href="#" class="fa fa-twitter icon icon-border twitter"> </a></li>
+                            <li><a href="#" class="fa fa-google-plus icon icon-border googleplus"> </a></li>
+                            <li><a href="#" class="fa fa-dribbble icon icon-border dribbble"> </a></li>
+                        </ul>
+                        <div class="clearfix" style="margin: 10px auto">
+                            <button class="btn btn-primary btn-lg" id="upload_image" onclick="upload_image_layer()">
+                                上传图像
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 header-w3right">
-                    <h3 class="agileits-title">个人信息</h3>
-                    <div class="profile-agileinfo">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet sem sit amet
-                            dolor luctus pellentesque. Pellentesque eleifend tellus at interdum elementum. Nam egestas
-                            molestie elit. Vivamus sed accumsan quam, a mollis magna. Nam aliquet eros eget sapien
-                            consequat tincidunt at vel nibh. Duis ut turpis mi. Duis nec scelerisque urna, sit amet
-                            varius arcu. Aliquam aliquet sapien quis mauris semper suscipit. Maecenas pharetra dapibus
-                            posuere. </p>
+            </div>
+            <div class="diver"></div>
+            <div class="col-md-8 header-w3right">
+                <h3 class="agileits-title">个人信息</h3>
+                <div class="profile-agileinfo">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet sem sit amet
+                        dolor luctus pellentesque. Pellentesque eleifend tellus at interdum elementum. Nam egestas
+                        molestie elit. Vivamus sed accumsan quam, a mollis magna. Nam aliquet eros eget sapien
+                        consequat tincidunt at vel nibh. Duis ut turpis mi. Duis nec scelerisque urna, sit amet
+                        varius arcu. Aliquam aliquet sapien quis mauris semper suscipit. Maecenas pharetra dapibus
+                        posuere. </p>
+                    <div class="row">
                         <div class="col-md-4 col-xs-4 profile-grids">
                             <i class="fa fa-user"></i>
                             <h5>Personal Info</h5>
@@ -78,70 +91,18 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="clearfix"></div>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
             </div>
+            <div class="clearfix"></div>
         </div>
     </div>
+</div>
 
-    <div class="row text-center vertical-middle-sm">
-        <h1>个人信息</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4 text-right"><span>用户名：</span></div>
-                    <div class="col-md-8 text-left">{{ user.username }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 text-right"><span>邮箱：</span></div>
-                    <div class="col-md-8 text-left">{{ user.email }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 text-right"><span>生日：</span></div>
-                    <div class="col-md-8 text-left">{{ userinfo.birthday }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 text-right"><span>电话：</span></div>
-                    <div class="col-md-8 text-left">{{ userinfo.phone }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 text-right"><span>职业：</span></div>
-                    <div class="col-md-8 text-left">{{ userinfo.profession }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 text-right"><span>住址：</span></div>
-                    <div class="col-md-8 text-left">{{ userinfo.address }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 text-right"><span>简介：</span></div>
-                    <div class="col-md-8 text-left">{{ userinfo.aboutme }}</div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div style="margin-right: 100px">
-                    {% if userprofile.img %}
-                        <img name="user_avatar" src="{{ userprofile.img | striptags }}" class="img-thumbnail"
-                             width="270px"
-                             id="my_avatar">
-                    {% else %}
-                        <img name="user_avatar" src="{% static '/images/avatar.jpg' %}" class="img-circle" width="270px"
-                             id="my_avatar">
-                    {% endif %}
-                </div>
-                <div style="margin: 40px 100px 0 auto">
-                    <button class="btn btn-primary btn-lg" id="upload_image" onclick="upload_image_layer()">
-                        上传图像
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
-    <script>
+<script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+<script>
         function upload_image_layer() {
             layer.open({
                 title: '上传图像',
@@ -150,5 +111,8 @@
                 content: "{% url 'user:my_image' %}",
             })
         }
-    </script>
+</script>
+{% endblock %}
+
+{% block rightbox %}
 {% endblock %}

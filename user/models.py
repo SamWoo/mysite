@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
-    img = models.ImageField(blank=True, max_length=65535)
+    img = models.TextField(blank=True)
 
     class Meta:
         verbose_name = "用户图像"
