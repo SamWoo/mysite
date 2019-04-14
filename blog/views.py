@@ -1,8 +1,10 @@
 # -*-coding:utf-8-*-
 import datetime
+import random
+from time import timezone
 
 import markdown
-import json
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -10,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from pure_pagination import PageNotAnInteger, Paginator, EmptyPage
 
 # Create your views here.
+from blog.forms import BlogPostForm
 from blog.models import Blog, Category, Tag
 from comment.forms import BlogCommentForm
 from gallery.models import Image
@@ -33,12 +36,14 @@ def index(request):
         blogs = paginator.page(paginator.num_pages)
     # print(blog_list)
     print(blogs)
-    # 获取Gallery图片
-    # images = Image.objects.all()[:5]
 
+    # 获取Gallery图片用于首页图片显示
+    images = Image.objects.all()
+    img_list = list({random.choice(images) for i in range(5)})
+    print(img_list)
     context = {
         'blog_list': blogs,
-        # 'images': images,
+        'images': img_list,
     }
 
     return render(request, 'blog/index.html', context=context)
@@ -184,6 +189,41 @@ def search(request):
         return render(request, 'blog/search.html', context=context)
     else:
         return HttpResponse('Please submit a search term.')
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def blog_post(request):
+    '''
+    博客发布界面
+    :param request:
+    :return:
+    '''
+    if request.method == 'POST':
+        blog_post_form = BlogPostForm(data=request.POST)
+        if blog_post_form.is_valid():
+            check_data = blog_post_form.cleaned_data
+            try:
+                new_blog = blog_post_form.save(commit=False)
+                # print('Title:{}\nContent:{}\nCategory:{}'.format(new_blog.title, new_blog.content, new_blog.category))
+                new_blog.save()
+                tag = random.choice(Tag.objects.all())
+
+                new_blog.tag.add(tag)
+                new_blog.save()
+
+                return HttpResponse("1")
+            except Exception as e:
+                print(e)
+                return HttpResponse("2")
+        else:
+            return HttpResponse("3")
+    else:
+        blog_post_form = BlogPostForm()
+        context = {
+            "blog_post_form": blog_post_form,
+        }
+        return render(request, 'blog/blog_post.html', context=context)
 
 
 @csrf_exempt

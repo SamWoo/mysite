@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<!-- Title -->
+{% block title %}
+    <title>写博客</title>
+{% endblock %}
+<!--CSS-->
+{% block css %}
+    {#    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">#}
+    <link rel="stylesheet" href="{% static 'editor/css/editormd.min.css' %}" type="text/css">
+{% endblock %}
+<!--JS-->
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+<!-- 文章编辑 -->
+{% block leftbox %}
+    <div style="margin-left: 10px;min-height: 600px">
+        <form class="form-horizontal" action="." method="post">{% csrf_token %}
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-2 text-right"><span>标题</span></div>
+                <div class="col-md-10 text-left">{{ blog_post_form.title }}</div>
+            </div>
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-2 text-right"><span>类别</span></div>
+                <div class="col-md-10 text-left">{{ blog_post_form.category }}</div>
+            </div>
+            <!--div class="row" style="margin-top: 10px">
+                <div class="col-md-2 text-right"><span>标签</span></div>
+                <div>{{ blog_post_form.tag }}</div>
+            </div-->
+
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-2 text-right"><span>正文</span></div>
+                <div id="editormd" class="col-md-10 text-left">
+                    <textarea style="" id="id_content">### Hello Editor.md !</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <input type="button" class="btn btn-primary btn-lg" value="发布" onclick="publish_blog()">
+            </div>
+        </form>
+    </div>
+
+
+    <script src="{% static 'editor/js/editormd.min.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var editor = editormd("editormd", {
+                width: "100%",
+                height: 640,
+                syncScrolling: "single",
+                path: "{% static 'editor/lib/' %}" // Autoload modules mode, codemirror, marked... dependents libs path
+            });
+        });
+
+        function publish_blog() {
+            var title = $("#id_title").val();
+            var category = $("#id_category").val();
+            var content = $("#id_content").val();
+            {#var tag = $("#id_tag").val();#}
+            $.ajax({
+                url: "{% url 'blog:blog_post' %}",
+                type: "POST",
+                data: {
+                    "title": title,
+                    "category": category,
+                    //"tag": tag,
+                    "content": content,
+                },
+                success: function (e) {
+                    if (e == 1) {
+                        layer.msg("发布成功!");
+                        location.href = "{% url 'blog:index' %}"
+                    } else if (e == 2) {
+                        layer.msg("发布失败!!");
+                    } else {
+                        layer.msg("数据无效!")
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock %}
+<!-- rightbox -->
+{% block rightbox %}
+
+{% endblock %}

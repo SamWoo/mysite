@@ -54,8 +54,8 @@ def profile(requset):
 
 
 @login_required(login_url='/login/')
-def myself(requset):
-    user = User.objects.get(username=requset.user.username)
+def myself(request):
+    user = User.objects.get(username=request.user.username)
     userprofile = Profile.objects.get(user=user)
     userinfo = UserInfo.objects.get(user=user)
     context = {
@@ -64,17 +64,17 @@ def myself(requset):
         "userinfo": userinfo
     }
     # print('img-->{}'.format(userprofile.img))
-    return render(requset, 'user/myself.html', context=context)
+    return render(request, 'user/myself.html', context=context)
 
 
 @login_required(login_url='/login/')
 def my_image(request):
     if request.method == 'POST':
         img = request.POST['img']
-        userprofile = Profile.objects.get(user=request.user.id)
-        userprofile.img = img
+        profile = Profile.objects.get(user=request.user.id)
+        profile.img = img
         # print('save img ===> {}'.format(userprofile.img))
-        userprofile.save()
+        profile.save()
         return HttpResponse("1")
     else:
         return render(request, 'user/imagecrop.html')

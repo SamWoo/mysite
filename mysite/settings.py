@@ -133,8 +133,8 @@ STATICFILES_DIRS = (
     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
     ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
     ('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\', '/')),
-    ('picture', os.path.join(STATIC_ROOT, 'picture').replace('\\', '/')),
     ('js', os.path.join(STATIC_ROOT, 'js').replace('\\', '/')),
+    ('editor', os.path.join(STATIC_ROOT, 'editor').replace('\\', '/')),
 )
 # Pagination setting
 PAGINATION_SETTINGS = {

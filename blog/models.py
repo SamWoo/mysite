@@ -1,5 +1,6 @@
 import re
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -41,6 +42,7 @@ class Blog(models.Model):
     """
     博客
     """
+    # author = models.ForeignKey(User, related_name='blog', on_delete=models.CASCADE)
     title = models.CharField(verbose_name='标题', max_length=100)
     content = MDTextField(verbose_name='正文', default='')
     excerpt = models.CharField(verbose_name='摘要', max_length=200, blank=True)
@@ -84,12 +86,15 @@ class Blog(models.Model):
             # 从文本摘取前 54 个字符赋给 excerpt
             self.excerpt = strip_tags(html)[:150]
 
-        #自动获取摘要中的首张图片路径
+        # 自动获取摘要中的首张图片路径
         if not self.thumb_img:
             patter = r'\bsrc="(.*?)"'
             m = re.search(patter, html, re.I)
             # print(m.group()[5:-1])
-            self.thumb_img = m.group()[5:-1]
+            if m:
+                self.thumb_img = m.group()[5:-1]
+            else:
+                self.thumb_img = ''
         # 调用父类的 save 方法将数据保存到数据库中
         super(Blog, self).save(*args, **kwargs)
 

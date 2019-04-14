@@ -21,7 +21,7 @@
             <li><a href="#">音乐</a></li>
             <!--li><a href="{% url 'user:profile' %}">关于我</a></li-->
             {% if user.is_authenticated %}
-                <li><a href="#">写博客</a></li>
+                <li><a href="{% url 'blog:blog_post' %}">写博客</a></li>
                 <li>
                     <button class="login-btn"><a href="{% url 'logout' %}?next={{ request.path }}">退出</a></button>
                 </li>
