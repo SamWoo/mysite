@@ -13,7 +13,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import sys
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# insert xadmin
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -35,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'xadmin',
+    'crispy_forms',
     'blog',
     'pure_pagination',
     'mdeditor',
@@ -87,6 +93,7 @@ DATABASES = {
         'PASSWORD': '123456',  # 密码
         'HOST': '127.0.0.1',  # 本机地址
         'PORT': '3306',  # 端口
+        # 'OPTIONS': {"init_command": "SET default_storage_engine=INNDB"},
     }
 }
 
@@ -129,13 +136,13 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
     ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
     ('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\', '/')),
     ('js', os.path.join(STATIC_ROOT, 'js').replace('\\', '/')),
     ('editor', os.path.join(STATIC_ROOT, 'editor').replace('\\', '/')),
-)
+]
 # Pagination setting
 PAGINATION_SETTINGS = {
     'PAGE_RANGE_DISPLAYED': 3,  # 中间显示的个数

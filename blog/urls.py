@@ -39,6 +39,8 @@ urlpatterns = [
     # search
     url(r'^search/$', views.search, name='search'),
     url(r'^blog-post/$', views.blog_post, name='blog_post'),
+    url(r'^upload-image/$', views.upload_image, name='upload_image'),
+    url(r'^blog-likes/$', views.likes, name='likes'),
     url(r'^ajax/$', views.testajax, name='ajax'),
     # 添加静态文件的访问处理函数
     url(r'^static/(?P<path>.*)/$', serve, {'document_root': STATIC_ROOT}),

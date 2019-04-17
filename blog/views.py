@@ -5,6 +5,7 @@ from time import timezone
 
 import markdown
 from django.contrib.auth.decorators import login_required
+from django.core.serializers import json
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -224,6 +225,36 @@ def blog_post(request):
             "blog_post_form": blog_post_form,
         }
         return render(request, 'blog/blog_post.html', context=context)
+
+
+@csrf_exempt
+def upload_image(request):
+    print(request.FILES)
+    image = request.FILES.get('editormd-image-file', None)
+    print(image)
+    if image:
+        res = {
+            'success': 1,
+            'message': '图片上传成功',
+            'url': image
+        }
+    else:
+        res = {
+            'success': 0,
+            'message': '图片上传失败',
+        }
+    return HttpResponse(json.dumps(res), content_type="text/html")
+
+
+@csrf_exempt
+def likes(request):
+    print(request.POST)
+    pk = request.POST.get('pk')
+    # num=request.POST.get('num',0)
+
+    blog = get_object_or_404(Blog, pk=pk)
+    blog.likes += 1
+    blog.save()
 
 
 @csrf_exempt

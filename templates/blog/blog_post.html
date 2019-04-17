@@ -6,7 +6,7 @@
 {% endblock %}
 <!--CSS-->
 {% block css %}
-    {#    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">#}
+    <!--<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" href="{% static 'editor/css/editormd.min.css' %}" type="text/css">
 {% endblock %}
 <!--JS-->
@@ -20,12 +20,12 @@
     <div style="margin-left: 10px;min-height: 600px">
         <form class="form-horizontal" action="." method="post">{% csrf_token %}
             <div class="row" style="margin-top: 10px">
-                <div class="col-md-2 text-right"><span>标题</span></div>
-                <div class="col-md-10 text-left">{{ blog_post_form.title }}</div>
+                <label><strong style="font-size: 20px;">标题</strong></label>
+                {{ blog_post_form.title }}
             </div>
             <div class="row" style="margin-top: 10px">
-                <div class="col-md-2 text-right"><span>类别</span></div>
-                <div class="col-md-10 text-left">{{ blog_post_form.category }}</div>
+                <label>类别</label>
+                {{ blog_post_form.category }}
             </div>
             <!--div class="row" style="margin-top: 10px">
                 <div class="col-md-2 text-right"><span>标签</span></div>
@@ -33,7 +33,6 @@
             </div-->
 
             <div class="row" style="margin-top: 10px">
-                <div class="col-md-2 text-right"><span>正文</span></div>
                 <div id="editormd" class="col-md-10 text-left">
                     <textarea style="" id="id_content">### Hello Editor.md !</textarea>
                 </div>
@@ -53,7 +52,15 @@
             var editor = editormd("editormd", {
                 width: "100%",
                 height: 640,
+                //theme:"dark",
+                //previewTheme:"dark",
+                //editorTheme:"pastel-on-dark",
+                tex:true,
+                flowChart:true,
                 syncScrolling: "single",
+                imageUpload: true,
+                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : "{% url 'blog:upload_image' %}", //文件提交请求路径
                 path: "{% static 'editor/lib/' %}" // Autoload modules mode, codemirror, marked... dependents libs path
             });
         });

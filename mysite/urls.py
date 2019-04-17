@@ -19,11 +19,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.static import serve
 
+import xadmin
 from blog import views
 from mysite.settings import STATIC_ROOT
 
 urlpatterns = [
-    url(r'admin/', admin.site.urls),
+    # url(r'admin/', admin.site.urls),
+    url(r'xadmin/', xadmin.site.urls),
     url(r'', include('blog.urls')),
     url(r'', include('comment.urls')),
     url(r'', include('user.urls')),
@@ -36,3 +38,5 @@ urlpatterns = [
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# https://www.cnblogs.com/derek1184405959/p/8747961.html

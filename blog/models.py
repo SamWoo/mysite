@@ -52,6 +52,7 @@ class Blog(models.Model):
     thumb_img = models.CharField(verbose_name='摘要缩略图', max_length=200, blank=True)
     category = models.ForeignKey(Category, verbose_name='文章类别', on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, verbose_name='文章标签')
+    likes = models.IntegerField(verbose_name='点赞数', default=0)
 
     class Meta:
         verbose_name = "我的博客"

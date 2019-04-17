@@ -28,14 +28,65 @@
                     {{ blog.content|safe }}
                 </div>
             </div>
+
+            <!--分享-->
             <div class="share">
-                <p class="diggit">
-                    <a href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');">
-                        很赞哦！
-                    </a>(<b id="diggnum">
-                    <script type="text/javascript" src="/e/public/ViewClick/?classid=2&amp;id=20&amp;down=5"></script>
-                    13</b>)
-                </p>
+                <div class="diggit">
+                    <!---->
+                    <span>很赞哦！(<b id="diggnum">{{blog.likes}}</b>)</span>
+                    <span id="add-num"><em>+1</em></span>
+
+                    <style type="text/css">
+                        #add-num{
+                            display:none;
+                        }
+                        #add-num .add-animation{
+                            color: #000;
+                            position:absolute;
+                            top:-15px;
+                            left: 10px;
+                            font-size: 15px;
+                            opacity: 0;
+                            filter: Alpha(opacity=0);
+                            -moz-opacity:0;
+                            animation: mypraise 0.5s ;
+                            -moz-animation: mypraise 0.5s ;	/* Firefox */
+                            -webkit-animation: mypraise 0.5s ;	/* Safari 和 Chrome */
+                            -o-animation: mypraise 0.5s ;	/* Opera */
+                            font-style:normal;
+                        }
+
+                    </style>
+                    <script type="text/javascript">
+                        //点赞
+                        $(function(){
+                            $(".diggit").click(function(){
+                            /*
+                                var praise_num=$("#diggnum");
+                                var text_box=$("#add-num");
+                                var num=parseInt(praise_num.text());
+
+                                praise_num.addClass("hover");
+                                text_box.show().html("<em class='add-animation'>+1</em>");
+                                $(".add-animation").addClass("hover");
+                                num+=1;
+                                praise_num.text(num);
+                            */
+
+                                $.ajax({
+                                    url:"{% url 'blog:likes' %}",
+                                    type:"POST",
+                                    data:{
+                                        "pk":blog.pk,
+                                    },
+                                    success:fuction(){
+                                        parent.location.reload();
+                                    },
+                                });
+                            });
+                        })
+                    </script>
+                </div>
                 <p class="dasbox">
                     <a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏本站</a>
                 </p>
@@ -63,6 +114,7 @@
                         </div>
                     </div>
                     <script type="text/javascript">
+                        //打赏
                         $(function () {
                             $(".pay_item").click(function () {
                                 $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
@@ -85,6 +137,8 @@
                 <img src="{% static 'images/zsm.jpg' %}">
             </div>
         </div>
+
+        <!--上下篇-->
         <div class="nextinfo">
             {% if previous_blog %}
                 <p>上一篇：<a class="prev" href="{{ previous_blog.get_absolute_url }}">
@@ -97,6 +151,8 @@
                 </p>
             {% endif %}
         </div>
+
+        <!--otherlink-->
         <div class="otherlink">
             <h2>相关文章</h2>
             <ul>
@@ -108,6 +164,8 @@
                 <li><a href="/" target="_blank">原来以为，一个人的勇敢是，删掉他的手机号码...</a></li>
             </ul>
         </div>
+
+        <!--评论区-->
         {% include 'comment/comments.html' %}
     </div>
 {% endblock %}
