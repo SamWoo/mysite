@@ -169,8 +169,8 @@
         <div class="ab_con">
             {% if user.is_authenticated %}
                 <p><b>网名：</b>{{ user.userinfo.nickname }}</p>
-                <p><b>职业：</b>{{ user.profession }} </p>
-                <p><b>现居：</b>{{ user.address }}</p>
+                <p><b>职业：</b>{{ user.userinfo.profession }} </p>
+                <p><b>现居：</b>{{ user.userinfo.address }}</p>
                 <p><b>邮箱：</b>{{ user.email }}</p>
             {% else %}
                 <p><b>网名：</b>***</p>

@@ -31,7 +31,7 @@
 
             <!--分享-->
             <div class="share">
-                <div class="diggit">
+                <div class="diggit" id="like">
                     <!---->
                     <span>很赞哦！(<b id="diggnum">{{blog.likes}}</b>)</span>
                     <span id="add-num"><em>+1</em></span>
@@ -59,10 +59,22 @@
                     </style>
                     <script type="text/javascript">
                         //点赞
+                        $("#like").click(function(){
+                            $.ajax({
+                                    url:"{% url 'blog:add_likes' %}",
+                                    type:"POST",
+                                    data:{
+                                        "pk":{{blog.pk}},
+                                    },
+                                    success:fuction(){
+                                        parent.location.reload();
+                                    },
+                            });
+                        });
+                        /**
                         $(function(){
                             $(".diggit").click(function(){
-                            /*
-                                var praise_num=$("#diggnum");
+                                                              var praise_num=$("#diggnum");
                                 var text_box=$("#add-num");
                                 var num=parseInt(praise_num.text());
 
@@ -71,20 +83,11 @@
                                 $(".add-animation").addClass("hover");
                                 num+=1;
                                 praise_num.text(num);
-                            */
 
-                                $.ajax({
-                                    url:"{% url 'blog:likes' %}",
-                                    type:"POST",
-                                    data:{
-                                        "pk":blog.pk,
-                                    },
-                                    success:fuction(){
-                                        parent.location.reload();
-                                    },
-                                });
+                                console.log("hahaha......")
                             });
-                        })
+                        });
+                        **/
                     </script>
                 </div>
                 <p class="dasbox">

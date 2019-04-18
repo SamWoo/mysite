@@ -1,13 +1,13 @@
 # -*-coding:utf-8-*-
 import datetime
+import os
 import random
-from time import timezone
 
 import markdown
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.core.serializers import json
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from pure_pagination import PageNotAnInteger, Paginator, EmptyPage
@@ -227,29 +227,50 @@ def blog_post(request):
         return render(request, 'blog/blog_post.html', context=context)
 
 
+@login_required(login_url='login')
 @csrf_exempt
 def upload_image(request):
-    print(request.FILES)
-    image = request.FILES.get('editormd-image-file', None)
-    print(image)
-    if image:
-        res = {
-            'success': 1,
-            'message': '图片上传成功',
-            'url': image
-        }
-    else:
-        res = {
-            'success': 0,
-            'message': '图片上传失败',
-        }
-    return HttpResponse(json.dumps(res), content_type="text/html")
+    if request.method == "POST":
+        # print(request.FILES)
+        data = request.FILES.get('editormd-image-file', None)
+        if data:
+            img = Image(img=data)
+            # file, ext = os.path.splitext(data.name)
+            media_root = settings.MEDIA_ROOT.split('\\')[-1]
+            os.path.join(media_root, 'image').replace('\\', '/')
+            url = os.path.join(os.path.join(media_root, 'image').replace('\\', '/'), data.name).replace('\\', '/')
+            # print(settings.MEDIA_ROOT)
+            # name = os.path.join(settings.MEDIA_ROOT, data.name)
+            # print('img_name-->{}'.format(data.name))
+            # while os.path.exists(name):
+            #     file,ext=os.path.splitext(data.name)
+
+            try:
+                img.save()
+                # url = name.split('static')
+                print(url)
+            except Exception as e:
+                print(e)
+
+            res = {
+                'success': 1,
+                'message': '图片上传成功',
+                'url': url,
+            }
+        else:
+            res = {
+                'success': 0,
+                'message': '图片上传失败',
+            }
+        return JsonResponse(res)
 
 
 @csrf_exempt
-def likes(request):
+def add_likes(request):
+    print('Haahahah .....')
     print(request.POST)
     pk = request.POST.get('pk')
+    print(pk)
     # num=request.POST.get('num',0)
 
     blog = get_object_or_404(Blog, pk=pk)

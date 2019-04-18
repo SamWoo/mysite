@@ -19,12 +19,13 @@
 {% block leftbox %}
     <div style="margin-left: 10px;min-height: 600px">
         <form class="form-horizontal" action="." method="post">{% csrf_token %}
+            {% csrf_token %}
             <div class="row" style="margin-top: 10px">
                 <label><strong style="font-size: 20px;">标题</strong></label>
                 {{ blog_post_form.title }}
             </div>
             <div class="row" style="margin-top: 10px">
-                <label>类别</label>
+                <label><strong style="font-size: 20px;">类别</strong></label>
                 {{ blog_post_form.category }}
             </div>
             <!--div class="row" style="margin-top: 10px">
@@ -37,9 +38,7 @@
                     <textarea style="" id="id_content">### Hello Editor.md !</textarea>
                 </div>
             </div>
-            <div class="row">
-                <input type="button" class="btn btn-primary btn-lg" value="发布" onclick="publish_blog()">
-            </div>
+            <button type="submit" class="submit-btn" onclick="publish_blog()">发布</button>
         </form>
     </div>
 
@@ -58,10 +57,12 @@
                 tex:true,
                 flowChart:true,
                 syncScrolling: "single",
+                emoji:true,
                 imageUpload: true,
                 imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                 imageUploadURL : "{% url 'blog:upload_image' %}", //文件提交请求路径
                 path: "{% static 'editor/lib/' %}" // Autoload modules mode, codemirror, marked... dependents libs path
+
             });
         });
 
