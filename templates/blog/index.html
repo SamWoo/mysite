@@ -11,26 +11,29 @@
 
     <div class="container">
         <ul id="partial-view">
-            {% for image in images %}
+            {% if images %}
+                {% for image in images %}
+                    <li>
+                        <img src="{{ image.img.url }}"/>
+                    </li>
+                {% endfor %}
+            {% else %}
                 <li>
-                    <img src="{{ image.img.url }}"/>
+                    <img src="{% static 'images/img_01.jpg' %}"/>
                 </li>
-            {% endfor %}
-            <!--li>
-                <img src="{% static 'images/img_01.jpg' %}"/>
-            </li>
-            <li>
-                <img src="{% static 'images/img_02.jpg' %}"/>
-            </li>
-            <li>
-                <img src="{% static 'images/img_03.jpg' %}"/>
-            </li>
-            <li>
-                <img src="{% static 'images/img_04.jpg' %}"/>
-            </li>
-            <li>
-                <img src="{% static 'images/img_05.jpg' %}"/>
-            </li-->
+                <li>
+                    <img src="{% static 'images/img_02.jpg' %}"/>
+                </li>
+                <li>
+                    <img src="{% static 'images/img_03.jpg' %}"/>
+                </li>
+                <li>
+                    <img src="{% static 'images/img_04.jpg' %}"/>
+                </li>
+                <li>
+                    <img src="{% static 'images/img_05.jpg' %}"/>
+                </li>
+            {% endif %}
         </ul>
         <!--
         <button id="prev">Prev</button>
@@ -53,7 +56,7 @@
 
         img {
             max-width: 100%;
-            max-height:400px
+            max-height: 400px
         }
 
         i.material-icons {

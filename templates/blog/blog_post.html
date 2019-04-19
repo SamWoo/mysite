@@ -22,13 +22,13 @@
             {% csrf_token %}
             <div class="row" style="margin-top: 10px">
                 <label><strong style="font-size: 20px;">标题</strong></label>
-                <input class="custom-input" id="title">
+                <input class="custom-input" id="id_title">
                 <!--{{ blog_post_form.title }}-->
             </div>
             <div class="row" style="margin-top: 10px">
                 <label><strong style="font-size: 20px;">类别</strong></label>
-                <input class="custom-input" id="category">
-                <!--{{ blog_post_form.category }}-->
+{#                <input class="custom-input" id="category">#}
+                {{ blog_post_form.category }}
             </div>
             <!--div class="row" style="margin-top: 10px">
                 <div class="col-md-2 text-right"><span>标签</span></div>

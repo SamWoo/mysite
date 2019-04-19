@@ -32,7 +32,7 @@
                              id="my_avatar">
                     {% endif %}
                     <div class="header-imgtext-w3ls">
-                        <h1>{{ user.username }}</h1>
+                        <h1>{{ userinfo.nickname }}</h1>
                         <div class="social-wthree-icons">
                             <ul>
                                 <li><a href="#" class="fa fa-facebook icon icon-border facebook"> </a></li>
@@ -41,11 +41,11 @@
                                 <li><a href="#" class="fa fa-dribbble icon icon-border dribbble"> </a></li>
                             </ul>
                             <div class="clearfix" style="margin: 10px auto">
-                                <button class="btn btn-primary btn-lg" id="upload_image" onclick="upload_image_layer()">
+                                <button class="btn btn-primary btn-lg" id="edit_info" onclick="edit_info_layer()">
                                     修改信息
                                 </button>
-                            <!--/div>
-                            <div class="clearfix" style="margin: 10px auto"-->
+                                <!--/div>
+                                <div class="clearfix" style="margin: 10px auto"-->
                                 <button class="btn btn-primary btn-lg" id="upload_image" onclick="upload_image_layer()">
                                     上传图像
                                 </button>
@@ -57,12 +57,11 @@
                 <div class="col-md-8 header-w3right">
                     <h3 class="agileits-title">profile</h3>
                     <div class="profile-agileinfo">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet sem sit amet
-                            dolor luctus pellentesque. Pellentesque eleifend tellus at interdum elementum. Nam egestas
-                            molestie elit. Vivamus sed accumsan quam, a mollis magna. Nam aliquet eros eget sapien
-                            consequat tincidunt at vel nibh. Duis ut turpis mi. Duis nec scelerisque urna, sit amet
-                            varius arcu. Aliquam aliquet sapien quis mauris semper suscipit. Maecenas pharetra dapibus
-                            posuere. </p>
+                        {% if userinfo.aboutme %}
+                            <p>{{ userinfo.aboutme }}</p>
+                        {% else %}
+                            <p>Write something about you! Show yourself to others, believe you are No.1!</p>
+                        {% endif %}
                         {#                        <div class="row">#}
                         <div class="col-md-4 col-xs-4 profile-grids">
                             <i class="fa fa-user"></i>
@@ -72,7 +71,7 @@
                                     <b>D.O.B</b> : 23-06-1980
                                 </li>
                                 <li>
-                                    <b>JOB TITLE</b> : Web Designer
+                                    <b>JOB TITLE</b> : {{ userinfo.profession }}
                                 </li>
                                 <li>
                                     <b>HOBBIES</b> : Reading and swimming
@@ -84,13 +83,13 @@
                             <h5>Contact Me</h5>
                             <ul class="address">
                                 <li>
-                                    <b>PHONE</b> : +01 111 222 3333
+                                    <b>PHONE</b> : {{ userinfo.phone }}
                                 </li>
                                 <li>
                                     <b>FAX</b> : +15 555 5678
                                 </li>
                                 <li>
-                                    <b>ADDRESS</b> : 756 gb Place,NS Canada
+                                    <b>ADDRESS</b> : {{ userinfo.address }}
                                 </li>
                             </ul>
                         </div>
@@ -99,7 +98,7 @@
                             <h5>Comments</h5>
                             <ul class="address">
                                 <li>
-                                    <b>E-MAIL</b> : <a href="mailto:example@mail.com"> mail@example.com</a>
+                                    <b>E-MAIL</b> : <a href="{{ user.email }}"> {{ user.email }}</a>
                                 </li>
                                 <li>
                                     <b>WEBSITE</b> : <a href="#">www.myresume.com</a>

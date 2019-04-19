@@ -40,8 +40,11 @@ def index(request):
 
     # 获取Gallery图片用于首页图片显示
     images = Image.objects.all()
-    img_list = list({random.choice(images) for i in range(5)})
-    print(img_list)
+    if images:
+        img_list = list({random.choice(images) for i in range(5)})
+        print(img_list)
+    else:
+        img_list = None
     context = {
         'blog_list': blogs,
         'images': img_list,
