@@ -227,44 +227,6 @@ def blog_post(request):
         return render(request, 'blog/blog_post.html', context=context)
 
 
-@login_required(login_url='login')
-@csrf_exempt
-def upload_image(request):
-    if request.method == "POST":
-        # print(request.FILES)
-        data = request.FILES.get('editormd-image-file', None)
-        if data:
-            img = Image(img=data)
-            # file, ext = os.path.splitext(data.name)
-            media_root = settings.MEDIA_ROOT.split('\\')[-1]
-            os.path.join(media_root, 'image').replace('\\', '/')
-            url = os.path.join(os.path.join(media_root, 'image').replace('\\', '/'), data.name).replace('\\', '/')
-            # print(settings.MEDIA_ROOT)
-            # name = os.path.join(settings.MEDIA_ROOT, data.name)
-            # print('img_name-->{}'.format(data.name))
-            # while os.path.exists(name):
-            #     file,ext=os.path.splitext(data.name)
-
-            try:
-                img.save()
-                # url = name.split('static')
-                print(url)
-            except Exception as e:
-                print(e)
-
-            res = {
-                'success': 1,
-                'message': '图片上传成功',
-                'url': url,
-            }
-        else:
-            res = {
-                'success': 0,
-                'message': '图片上传失败',
-            }
-        return JsonResponse(res)
-
-
 @csrf_exempt
 def add_likes(request):
     print('Haahahah .....')

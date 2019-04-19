@@ -22,11 +22,13 @@
             {% csrf_token %}
             <div class="row" style="margin-top: 10px">
                 <label><strong style="font-size: 20px;">标题</strong></label>
-                {{ blog_post_form.title }}
+                <input class="custom-input" id="title">
+                <!--{{ blog_post_form.title }}-->
             </div>
             <div class="row" style="margin-top: 10px">
                 <label><strong style="font-size: 20px;">类别</strong></label>
-                {{ blog_post_form.category }}
+                <input class="custom-input" id="category">
+                <!--{{ blog_post_form.category }}-->
             </div>
             <!--div class="row" style="margin-top: 10px">
                 <div class="col-md-2 text-right"><span>标签</span></div>
@@ -38,7 +40,8 @@
                     <textarea style="" id="id_content">### Hello Editor.md !</textarea>
                 </div>
             </div>
-            <button type="submit" class="submit-btn" onclick="publish_blog()">发布</button>
+            <input type="button" class="blog-publish-btn" value="保存并发布" onclick="publish_blog()">
+
         </form>
     </div>
 
@@ -60,7 +63,7 @@
                 emoji:true,
                 imageUpload: true,
                 imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                imageUploadURL : "{% url 'blog:upload_image' %}", //文件提交请求路径
+                imageUploadURL : "{% url 'uploads' %}", //文件提交请求路径
                 path: "{% static 'editor/lib/' %}" // Autoload modules mode, codemirror, marked... dependents libs path
 
             });

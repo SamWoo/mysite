@@ -756,6 +756,7 @@ h3.blogtitle:hover a {
     color: #cc4125;
 }
 
+/* 昵称 */
 .nickname {
     font-size: 15px;
     color: #cc4125;
@@ -766,9 +767,10 @@ h3.blogtitle:hover a {
     color: #4a86e8;
 }
 
+/* 评论 */
 .comment_content {
-    border-bottom: #cccccc 0.5px solid;
-    margin: 2px;
+    /*border-bottom: #cccccc 0.5px solid;*/
+    margin: 12px;
     text-align: justify;
     padding: 2px;
 }

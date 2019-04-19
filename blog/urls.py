@@ -39,7 +39,6 @@ urlpatterns = [
     # search
     url(r'^search/$', views.search, name='search'),
     url(r'^blog-post/$', views.blog_post, name='blog_post'),
-    url(r'^upload-image$', views.upload_image, name='upload_image'),
     url(r'^add-likes/$', views.add_likes, name='add_likes'),
     url(r'^ajax/$', views.testajax, name='ajax'),
     # 添加静态文件的访问处理函数
