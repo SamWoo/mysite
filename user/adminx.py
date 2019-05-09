@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 
 import xadmin
-from user.models import Profile, UserInfo
+from user.models import Profile, UserInfo,Student
 from xadmin import views
 
 
@@ -21,6 +21,9 @@ class UserInfoAdmin(object):
     list_display = ['user', 'phone', 'birthday', 'address', 'profession', 'aboutme']
     list_filter = ['profession', 'birthday']
 
+class StudentAdmin(object):
+    list_display = ['name', 'number', 'sex', 'age', 'zhuanye', 'clas']
+    lis_filter = ['number', 'zhuanye']
 
 # 创建xadmin的基本管理配置，并与view绑定
 class BaseSetting(object):
@@ -42,6 +45,7 @@ class GlobalSettings(object):
 xadmin.site.unregister(User)  # 去掉在admin中的注册
 xadmin.site.register(User, ProfileAdmin)  # 用userProfileAdmin注册user
 xadmin.site.register(UserInfo, UserInfoAdmin)
+xadmin.site.register(Student, StudentAdmin)
 # 将基本配置管理与View绑定
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 # 将title与footer信息进行注册
