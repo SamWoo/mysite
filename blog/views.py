@@ -267,3 +267,61 @@ def testajax(request):
             return HttpResponse(html)
     else:
         return render(request, "blog/ajax.html")
+    
+ @csrf_exempt
+def modify(request):
+    if request.method == "POST":
+        print(request.POST)
+        action = request.POST.get('action')
+        num = request.POST.get('num')
+        if action == '0':  # modify
+            obj = Student.objects.get(number=num)
+
+            data = {
+                'num': obj.number,
+                'name': obj.name,
+                'sex': obj.sex,
+                'age': obj.age,
+                'zhuanye': obj.zhuanye,
+                'clas': obj.clas,
+            }
+
+            return HttpResponse(json.dumps(data, ensure_ascii=False), content_type='application/json')
+        elif action == '1':  # delete
+            Student.objects.filter(number=num).delete()
+            data = {
+                'status': 1,
+            }
+            return JsonResponse(data=data)
+        elif action == '2':  # save
+            name = request.POST.get('name')
+            sex = request.POST.get('sex')
+            age = request.POST.get('age')
+            zhuanye = request.POST.get('zhuanye')
+            clas = request.POST.get('clas')
+            Student.objects.filter(number=num).update(name=name, number=num, age=age, sex=sex, zhuanye=zhuanye,
+                                                      clas=clas)
+
+            data = {
+                'status': 1,
+            }
+            return JsonResponse(data=data)
+        elif action == '3':
+            name = request.POST.get('name')
+            sex = request.POST.get('sex')
+            age = request.POST.get('age')
+            zhuanye = request.POST.get('zhuanye')
+            clas = request.POST.get('clas')
+            obj = Student.objects.create(name=name, number=num, age=age, sex=sex, zhuanye=zhuanye,
+                                         clas=clas)
+            obj.save()
+            data = {
+                'status': 1,
+            }
+            return JsonResponse(data=data)
+    else:
+        students = Student.objects.all()
+        context = {
+            'lists': students,
+        }
+        return render(request, 'blog/ajax.html', context=context)   
