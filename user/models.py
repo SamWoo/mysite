@@ -29,3 +29,18 @@ class UserInfo(models.Model):
 
     def __str__(self):
         return 'user:{}'.format(self.user.username)
+
+class Student(models.Model):
+    name = models.CharField(max_length=100, blank=True)
+    number = models.CharField(max_length=20, blank=True)
+    sex = models.CharField(max_length=1, default='0')
+    age = models.IntegerField(blank=True, default=18)
+    zhuanye = models.CharField(max_length=100, blank=True)
+    clas = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        verbose_name = '学生信息'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return 'student:{}'.format(self.name)
