@@ -8,6 +8,35 @@
 
 <!--  轮播图 -->
 {% block ViewSlider %}
+    <!-- Partialviewslider JS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/partialviewslider.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}"/><!--CSS RESET-->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" type="text/css">
+    <style type="text/css">
+        /*reset*/
+        body {
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 400px
+        }
+
+        i.material-icons {
+            vertical-align: sub;
+            font-size: 110%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+    </style>
+
 
     <div class="container">
         <ul id="partial-view">
@@ -43,35 +72,7 @@
         -->
     </div>
     <div class="blank"></div>
-    <!-- Partialviewslider JS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/partialviewslider.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}"/><!--CSS RESET-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style type="text/css">
-        /*reset*/
-        body {
-            margin: 0;
-            overflow-x: hidden;
-        }
-
-        img {
-            max-width: 100%;
-            max-height: 400px
-        }
-
-        i.material-icons {
-            vertical-align: sub;
-            font-size: 110%;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            border-radius: 10px;
-        }
-    </style>
-    <script src="{% static 'js/partialviewslider.min.js' %}"></script>
+    <script src="{% static 'js/partialviewslider.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#partial-view').partialViewSlider()

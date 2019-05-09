@@ -1,5 +1,6 @@
 # -*-coding:utf-8-*-
 import datetime
+import json
 import os
 import random
 
@@ -17,6 +18,7 @@ from blog.forms import BlogPostForm
 from blog.models import Blog, Category, Tag
 from comment.forms import BlogCommentForm
 from gallery.models import Image
+from user.models import Student
 
 
 def index(request):
@@ -267,8 +269,9 @@ def testajax(request):
             return HttpResponse(html)
     else:
         return render(request, "blog/ajax.html")
-    
- @csrf_exempt
+
+
+@csrf_exempt
 def modify(request):
     if request.method == "POST":
         print(request.POST)
@@ -324,4 +327,4 @@ def modify(request):
         context = {
             'lists': students,
         }
-        return render(request, 'blog/ajax.html', context=context)   
+        return render(request, 'blog/ajax.html', context=context)
