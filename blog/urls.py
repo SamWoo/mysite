@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^blog-post/$', views.blog_post, name='blog_post'),
     url(r'^add-likes/$', views.add_likes, name='add_likes'),
     url(r'^ajax/$', views.testajax, name='ajax'),
+    url(r'^modify/$', views.modify, name='modify'),
     # 添加静态文件的访问处理函数
     url(r'^static/(?P<path>.*)/$', serve, {'document_root': STATIC_ROOT}),
 ]
