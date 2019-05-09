@@ -323,7 +323,7 @@ def modify(request):
             }
             return JsonResponse(data=data)
     else:
-        students = Student.objects.all()
+        students = Student.objects.all().order_by("number")
         context = {
             'lists': students,
         }
