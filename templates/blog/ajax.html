@@ -136,40 +136,34 @@
                 <td>
                     <a id="a1" href="javascript:" onclick="modify({{ list.number }})"
                        class="btn btn-info btn-sm">修改</a>&nbsp;&nbsp;
-                    <a href="javascript:" class="btn btn-danger btn-sm"
-                       data-toggle="modal" data-target="#delModal">删除</a>
-                    <div class="modal fade" id="delModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                            aria-hidden="true">×</span></button>
-                                    <h4 class="modal-title" id="exampleModalLabel">确认框</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="message-text" class="control-label">确定要删除联系人？</label>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
-                                    <button type="button" class="btn btn-primary" onclick="del({{ list.number }})">确认
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <P class="btn btn-danger btn-sm"
+                       data-toggle="modal" data-target="#delModal">删除</p>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    <!--modal-->
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalTitle">确认框</h4>
+                </div>
+                <div class="modal-body">
+                    <p>是否确认要删除该项记录？</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">返回</button>
+                    <button class="btn btn-primary" type="button" onclick="del()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <button class="btn btn-success" id="add" style="" onclick="add()">+ 新增学生信息</button>
-
-
 </div>
 
 <script>
@@ -192,7 +186,7 @@
             type: 'POST',
             url: "{% url 'blog:modify' %}",
             data: {
-                'action': '3',//add
+                'action': '3',//add new student info
                 'num': $('#add-num').val(),
                 'name': $('#add-name').val(),
                 'sex': this.sex,
@@ -218,7 +212,7 @@
             type: "POST",
             url: "{% url 'blog:modify' %}",
             data: {
-                'action': '0',//modify
+                'action': '0',//modify student info
                 'num': num,
             },
             success: function (data) {
@@ -237,12 +231,20 @@
     }
 
     <!--delete student info-->
-    function del(num) {
+    var num = '0';
+    $("#delModal").on('show.bs.modal', function(e){
+        var target = $(e.relatedTarget);
+        num = target.data('whatever');
+        
+        var modal = $(this);
+        modal.find('.modal-body p').text('是否确认要删除 学号：'+num+' 该项记录？');
+    });
+    function del() {
         $.ajax({
             type: 'POST',
             url: "{% url 'blog:modify' %}",
             data: {
-                'action': '1',//delete
+                'action': '1',//delete a student info
                 'num': num,
             },
             success: function (data) {
@@ -263,7 +265,7 @@
             type: 'POST',
             url: "{% url 'blog:modify' %}",
             data: {
-                'action': '2',//save
+                'action': '2',//save 保存一个经过修改后的学生信息
                 'name': $("#name").val(),
                 'num': $("#num").val(),
                 'sex': this.sex,
