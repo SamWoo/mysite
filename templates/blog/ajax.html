@@ -173,38 +173,6 @@
         sex = $(e.target).val();
     });
 
-    <!--add student-->
-    function add() {
-        $('table').hide();
-        $('#add').hide();
-        $('#form1').hide();
-        $('#form2').show();
-    }
-
-    function add_save() {
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'blog:modify' %}",
-            data: {
-                'action': '3',//add new student info
-                'num': $('#add-num').val(),
-                'name': $('#add-name').val(),
-                'sex': this.sex,
-                'age': $('#add-age').val(),
-                'zhuanye': $('#add-zhuanye').val(),
-                'clas': $('#add-clas').val(),
-            },
-            success: function (data) {
-                console.log(data);
-                if (data.status == 1) {
-                    window.location.reload();
-                }else if(data.status==0){
-                    alert("输入数据无效！请查看是否输入空字段！");
-                }
-            }
-        });
-    }
-
     <!--modify function-->
     function modify(num) {
         $('table').hide();
@@ -225,6 +193,7 @@
                     $("[value='1']").removeAttr("checked");
                     $("[value='0']").attr("checked", true);
                 }
+                sex = data.sex;
                 $("[name='age']").val(data.age);
                 $("[name='zhuanye']").val(data.zhuanye);
                 $("[name='clas']").val(data.clas);
@@ -293,6 +262,38 @@
     function back() {
         console.log("back to main window!");
         window.location.reload();
+    }
+    
+    <!--add student-->
+    function add() {
+        $('table').hide();
+        $('#add').hide();
+        $('#form1').hide();
+        $('#form2').show();
+    }
+
+    function add_save() {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'blog:modify' %}",
+            data: {
+                'action': '3',//add new student info
+                'num': $('#add-num').val(),
+                'name': $('#add-name').val(),
+                'sex': this.sex,
+                'age': $('#add-age').val(),
+                'zhuanye': $('#add-zhuanye').val(),
+                'clas': $('#add-clas').val(),
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.status == 1) {
+                    window.location.reload();
+                }else if(data.status==0){
+                    alert("输入数据无效！请查看是否输入空字段！");
+                }
+            }
+        });
     }
 
     <!--comment-->
