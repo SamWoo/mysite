@@ -198,6 +198,8 @@
                 console.log(data);
                 if (data.status == 1) {
                     window.location.reload();
+                }else if(data.status==0){
+                    alert("输入数据无效！请查看是否输入空字段！");
                 }
             }
         });
@@ -280,6 +282,8 @@
                 //alert("学号:"+$("#num").val()+"修改成功");
                 if (data.status == 1) {
                     window.location.reload();//刷新当前界面
+                }else if(data.status==0){
+                    alert("输入数据无效！请查看是否输入空字段！");
                 }
             }
         });
