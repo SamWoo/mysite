@@ -244,7 +244,8 @@ def add_likes(request):
     blog.likes += 1
     blog.save()
 
-#--------------Test Ajax----------------------
+
+# --------------Test Ajax----------------------
 @csrf_exempt
 def testajax(request):
     if request.method == "POST":
@@ -273,7 +274,7 @@ def testajax(request):
 
 @csrf_exempt
 def modify(request):
-        if request.method == "POST":
+    if request.method == "POST":
         print(request.POST)
         action = request.POST.get('action')
         num = request.POST.get('num')
@@ -321,21 +322,26 @@ def modify(request):
             clas = request.POST.get('clas')
 
             if all([name, num, sex, age, zhuanye, clas]):
-                obj = Student.objects.create(name=name, number=num, age=age, sex=sex, zhuanye=zhuanye,
-                                             clas=clas)
-                obj.save()
-                data = {
-                    'status': 1,
-                }
+                if Student.objects.filter(number=num):
+                    data = {
+                        'status': 0,
+                    }
+                    return JsonResponse(data=data)
+                else:
+                    obj = Student.objects.create(name=name, number=num, age=age, sex=sex, zhuanye=zhuanye,
+                                                 clas=clas)
+                    obj.save()
+                    data = {
+                        'status': 1,
+                    }
             else:
                 data = {
-                    'status': 0,
+                    'status': 2,
                 }
             return JsonResponse(data=data)
     else:
-        students = Student.objects.all()
+        students = Student.objects.all().order_by('number')
         context = {
             'lists': students,
         }
         return render(request, 'blog/ajax.html', context=context)
-
