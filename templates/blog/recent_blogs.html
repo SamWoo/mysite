@@ -1,0 +1,15 @@
+{% load staticfiles %}
+{% load blog_tags %}
+<div class="paihang">
+    <h2 class="ab_title"><p>近期文章</p></h2>
+    {% get_recent_blogs as recent_blog_list %}
+    <ul class="news">
+        {% for blog in recent_blog_list %}
+        <li>
+            <a href="{% url 'blog:detail' blog.pk %}">{{ blog.title }}</a>
+        </li>
+        {% empty %}
+        暂无文章！
+        {% endfor %}
+    </ul>
+</div>

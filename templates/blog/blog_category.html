@@ -1,0 +1,17 @@
+{% load staticfiles %}
+{% load blog_tags %}
+<div class="paihang">
+    <h2 class="ab_title"><p>博客分类</p></h2>
+    {% get_categories as category_list %}
+    <ul class="news">
+        {% for category in category_list %}
+        <li>
+            <a href="{% url 'blog:category' category.pk %}">{{ category.name }}
+                (<span class="post-count" style="color: #00A000">{{ category.num_blogs }}</span>)
+            </a>
+        </li>
+        {% empty %}
+        暂无分类！
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,33 @@
+{% load staticfiles %}
+{% load blog_tags %}
+<div class="paihang">
+    <h2 class="ab_title"><p>标签云</p></h2>
+    {% get_tags as tags_list %}
+    <ul class="tags">
+        {% for tag in tags_list %}
+        <span><a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a></span>
+        {% empty %}
+        暂无标签！
+        {% endfor %}
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function(){
+        let obj=$(".tags span a");
+        //console.log(obj);
+        let str='0123456789abcdef';
+        let color='';
+
+        for(let i=0;i<obj.length;i++){
+            for(let j=0;j<6;j++){
+                color+=str.substr(parseInt(Math.random()*str.length),1);
+                //console.log('color-->'+color);
+            }
+            //obj[i].html(parseInt(Math.random()*10));
+            //console.log(obj[i])
+            $(obj[i]).css('background','#'+color);
+            color='';
+        }
+    });
+
+</script>
