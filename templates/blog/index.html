@@ -7,182 +7,28 @@
 {% endblock %}
 
 <!--  轮播图 -->
-{% block ViewSlider %}
-    <!-- Partialviewslider JS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/partialviewslider.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}"/><!--CSS RESET-->
-    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" type="text/css">
-    <style type="text/css">
-        /*reset*/
-        body {
-            margin: 0;
-            overflow-x: hidden;
-        }
+{% block banner %}
+    {% include 'blog/banner.html' %}
+{% endblock %}
 
-        img {
-            max-width: 100%;
-            max-height: 400px
-        }
-
-        i.material-icons {
-            vertical-align: sub;
-            font-size: 110%;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            border-radius: 10px;
-        }
-    </style>
-
-
-    <div class="container">
-        <ul id="partial-view">
-            {% for image in images %}
-                <li>
-                    <img src="{{ image.img.url }}"/>
-                </li>
-            {% empty %}
-                <li>
-                    <img src="{% static 'images/img_01.jpg' %}"/>
-                </li>
-                <li>
-                    <img src="{% static 'images/img_02.jpg' %}"/>
-                </li>
-                <li>
-                    <img src="{% static 'images/img_03.jpg' %}"/>
-                </li>
-                <li>
-                    <img src="{% static 'images/img_04.jpg' %}"/>
-                </li>
-                <li>
-                    <img src="{% static 'images/img_05.jpg' %}"/>
-                </li>
-            {% endfor %}
-        </ul>
-        <!--
-        <button id="prev">Prev</button>
-        <button id="next">Next</button>
-        <button id="play">Play</button>
-        <button id="pause">Pause</button>
-        -->
-    </div>
-    <div class="blank"></div>
-    <script src="{% static 'js/partialviewslider.js' %}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#partial-view').partialViewSlider()
-        });
-    </script>
+<!-- hometitle -->
+{% block hometitle %}
+    <h2 class="hometitle">最新文章</h2>
 {% endblock %}
 
 <!-- 左边 -->
-{% block leftbox %}
-    <div class="leftbox">
-        <div class="newblogs">
-            {% block hometitle %}
-                <h2 class="hometitle">最新文章</h2>
-            {% endblock %}
-            <ul>
-                <div class="bloglist">
-                    {% for blog in blog_list.object_list %}
-                        <li>
-                            <h3 class="blogtitle">
-                                <a href="{{ blog.get_absolute_url }}" target="_blank">{{ blog.title }}</a>
-                            </h3>
-                            <div class="bloginfo">
-                                <span class="blogpic">
-                                    <img src="{{ blog.thumb_img }}"/>
-                                </span>
-                                <p>{{ blog.excerpt }}...</p>
-                            </div>
-                            <div class="autor">
-                                <span class="category" style="color: #00A000">{{ blog.category.name }}</span>
-                                <span class="dtime f_1">{{ blog.create_time }}</span>
-                                <span class="viewnum f_1">点击（<a>{{ blog.click_nums }}</a>)</span>
-                                <span class="comment">评论（<a>{{ blog.comment_set.count }}</a>）</span>
-                                <span class="read-more cl-effect-14">
-                                <a href="{{ blog.get_absolute_url }}" class="more-link" target="_blank"
-                                   style="float: right">继续阅读 >>> </a>
-                                </span>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </div>
-            </ul>
-            <!--分页展示-->
-            <ul class="pagelist">
-                {% if blog_list.has_previous %}
-                    <a href="?{{ blog_list.previous_page_number.querystring }}">上一页</a>
-                {% endif %}
-
-                {% for page in blog_list.pages %}
-                    {% if page %}
-                        {% ifequal page blog_list.number %}
-                            <a href="?{{ page.querystring }}">{{ page }}</a>
-                        {% else %}
-                            <a href="?{{ page.querystring }}">{{ page }}</a>
-                        {% endifequal %}
-                    {% else %}
-                        <a href="">...</a>
-                    {% endif %}
-                {% endfor %}
-
-                {% if blog_list.has_next %}
-                    <a href="?{{ blog_list.next_page_number.querystring }}">下一页</a>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
+{% block bloglist %}
+    {% include 'blog/blog_list.html' %}
 {% endblock %}
 
 <!-- 搜索 -->
 {% block search %}
-    <div class="search">
-        <form action="{% url 'blog:search' %}" method="get" name="searchform" id="searchform">
-            <input name="keywords" id="keywords" class="input_text" value="请输入关键字"
-                   style="color: rgb(153, 153, 153);"
-                   onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}"
-                   onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
-            <input name="Submit" class="input_submit" value="搜索" type="submit">
-        </form>
-    </div>
+    {% include 'blog/search_keywords.html' %}
 {% endblock %}
 
 <!-- 关于 -->
 {% block aboutme %}
-    <div class="aboutme">
-        <h2 class="ab_title">关于我</h2>
-        <div class="avatar">
-            {% if user.is_authenticated %}
-                <a href="{% url 'user:profile' %}">
-                    {% if user.profile.img %}
-                        <img src="{{ user.profile.img }}" alt="暂无图像"/>
-                    {% else %}
-                        <img src="{% static 'images/avatar.jpg' %}">
-                    {% endif %}
-                </a>
-            {% else %}
-                <img src="{% static 'images/avatar.jpg' %}">
-            {% endif %}
-        </div>
-        <div class="ab_con">
-            {% if user.is_authenticated %}
-                <p><b>网名：</b>{{ user.userinfo.nickname }}</p>
-                <p><b>职业：</b>{{ user.userinfo.profession }} </p>
-                <p><b>现居：</b>{{ user.userinfo.address }}</p>
-                <p><b>邮箱：</b>{{ user.email }}</p>
-            {% else %}
-                <p><b>网名：</b>***</p>
-                <p><b>职业：</b>*** </p>
-                <p><b>现居：</b>***</p>
-                <p><b>邮箱：</b>***</p>
-            {% endif %}
-        </div>
-    </div>
-    <div class="blank"></div>
+    {% include 'blog/about.html' %}
 {% endblock %}
 
 <!-- 排行 -->
@@ -195,17 +41,5 @@
 
 <!-- 友情链接 -->
 {% block links %}
-    <div class="links">
-        <h2 class="ab_title">友情链接</h2>
-        <ul>
-            <li><a href="https://www.jianshu.com/u/dbf000a341eb">个人简书</a></li>
-            <li><a href="/">优秀个人博客</a></li>
-        </ul>
-    </div>
-    <div class="weixin">
-        <h2 class="ab_title">微信关注</h2>
-        <ul>
-            <img src="{% static 'images/wx.jpg' %}">
-        </ul>
-    </div>
+    {% include 'blog/links.html' %}
 {% endblock %}

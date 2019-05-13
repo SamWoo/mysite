@@ -31,12 +31,20 @@
 <div class="line64"></div>
 <article>
     <div class="blank"></div>
-    <!-- 轮播图片 -->
-    {% block ViewSlider %}
+    <!-- 轮播图-->
+    {% block banner %}
     {% endblock %}
-
     <!--  左边 -->
     {% block leftbox %}
+        <div class="leftbox">
+            <div class="newblogs">
+                {% block hometitle %}
+                {% endblock %}
+
+                {% block bloglist %}
+                {% endblock %}
+            </div>
+        </div>
     {% endblock %}
 
     <!--  右边 -->

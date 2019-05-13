@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<ul>
+    <div class="bloglist">
+        {% for blog in blog_list.object_list %}
+            <li>
+                <h3 class="blogtitle">
+                    <a href="{{ blog.get_absolute_url }}" target="_blank">{{ blog.title }}</a>
+                </h3>
+                <div class="bloginfo">
+                                <span class="blogpic">
+                                    <img src="{{ blog.thumb_img }}"/>
+                                </span>
+                    <p>{{ blog.excerpt }}...</p>
+                </div>
+                <div class="autor">
+                    <span class="category" style="color: #00A000">{{ blog.category.name }}</span>
+                    <span class="dtime f_1">{{ blog.create_time }}</span>
+                    <span class="viewnum f_1">点击（<a>{{ blog.click_nums }}</a>)</span>
+                    <span class="comment">评论（<a>{{ blog.comment_set.count }}</a>）</span>
+                    <span class="likes">喜欢（<a>{{ blog.likes }}</a>）</span>
+                    <span class="read-more cl-effect-14">
+                                <a href="{{ blog.get_absolute_url }}" class="more-link" target="_blank"
+                                   style="float: right">继续阅读 >>> </a>
+                                </span>
+                </div>
+            </li>
+        {% endfor %}
+    </div>
+</ul>
+<!--分页展示-->
+<ul class="pagelist">
+    {% if blog_list.has_previous %}
+        <a href="?{{ blog_list.previous_page_number.querystring }}">上一页</a>
+    {% endif %}
+
+    {% for page in blog_list.pages %}
+        {% if page %}
+            {% ifequal page blog_list.number %}
+                <a href="?{{ page.querystring }}">{{ page }}</a>
+            {% else %}
+                <a href="?{{ page.querystring }}">{{ page }}</a>
+            {% endifequal %}
+        {% else %}
+            <a href="">...</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if blog_list.has_next %}
+        <a href="?{{ blog_list.next_page_number.querystring }}">下一页</a>
+    {% endif %}
+</ul>

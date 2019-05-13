@@ -1,0 +1,17 @@
+{% load staticfiles %}
+{% load blog_tags %}
+<div class="paihang">
+    <h2 class="ab_title"><p>文章归档</p></h2>
+    {% get_archives as date_list %}
+    <ul class="news">
+        {% for date in date_list %}
+            <li>
+                <a href="{% url 'blog:archives' date.year date.month %}">
+                    {{ date.year }} 年 {{ date.month }} 月
+                </a>
+            </li>
+        {% empty %}
+            暂无归档！
+        {% endfor %}
+    </ul>
+</div>

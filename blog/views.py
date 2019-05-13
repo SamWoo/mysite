@@ -108,9 +108,20 @@ def archives(request, year, month):
         blogs = paginator.page(1)
     except EmptyPage:
         blogs = paginator.page(paginator.num_pages)
-    # print(blog_list)
 
-    return render(request, 'blog/index.html', context={'blog_list': blogs})
+    # 获取Gallery图片用于首页图片显示
+    images = Image.objects.all()
+    if images:
+        img_list = list({random.choice(images) for i in range(5)})
+        print(img_list)
+    else:
+        img_list = None
+    context = {
+        'blog_list': blogs,
+        'images': img_list,
+    }
+
+    return render(request, 'blog/index.html', context=context)
 
 
 def category(request, pk):
@@ -132,9 +143,20 @@ def category(request, pk):
         blogs = paginator.page(1)
     except EmptyPage:
         blogs = paginator.page(paginator.num_pages)
-    # print(blog_list)
 
-    return render(request, 'blog/index.html', context={'blog_list': blogs})
+    # 获取Gallery图片用于首页图片显示
+    images = Image.objects.all()
+    if images:
+        img_list = list({random.choice(images) for i in range(5)})
+        print(img_list)
+    else:
+        img_list = None
+    context = {
+        'blog_list': blogs,
+        'images': img_list,
+    }
+
+    return render(request, 'blog/index.html', context=context)
 
 
 def tag(request, pk):
@@ -156,9 +178,20 @@ def tag(request, pk):
         blogs = paginator.page(1)
     except EmptyPage:
         blogs = paginator.page(paginator.num_pages)
-    # print(blog_list)
 
-    return render(request, 'blog/index.html', context={'blog_list': blogs})
+    # 获取Gallery图片用于首页图片显示
+    images = Image.objects.all()
+    if images:
+        img_list = list({random.choice(images) for i in range(5)})
+        print(img_list)
+    else:
+        img_list = None
+    context = {
+        'blog_list': blogs,
+        'images': img_list,
+    }
+
+    return render(request, 'blog/index.html', context=context)
 
 
 def about(request):
@@ -234,15 +267,19 @@ def blog_post(request):
 
 @csrf_exempt
 def add_likes(request):
-    print('Haahahah .....')
-    print(request.POST)
-    pk = request.POST.get('pk')
-    print(pk)
-    # num=request.POST.get('num',0)
+    if request.method == "POST":
+        print(request.POST)
+        pk = request.POST.get('pk')
+        # print(pk)
 
-    blog = get_object_or_404(Blog, pk=pk)
-    blog.likes += 1
+        blog = get_object_or_404(Blog, pk=pk)
+        blog.likes += 1
+
     blog.save()
+    data = {
+        'num': blog.likes,
+    }
+    return JsonResponse(data=data)
 
 
 # --------------Test Ajax----------------------
@@ -269,7 +306,7 @@ def testajax(request):
             # return HttpResponse(json.dumps(data, ensure_ascii=False), content_type='application/json')
             return HttpResponse(html)
     else:
-        return render(request, "blog/ajax.html")
+        return render(request, "ajax/ajax.html")
 
 
 @csrf_exempt
@@ -344,4 +381,6 @@ def modify(request):
         context = {
             'lists': students,
         }
-        return render(request, 'blog/ajax.html', context=context)
+        return render(request, 'ajax/ajax.html', context=context)
+
+# ----------------end Test----------------------------------------

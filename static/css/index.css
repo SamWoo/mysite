@@ -193,7 +193,7 @@ h3.blogtitle:hover a {
     background: url(../images/newsbg03.png) no-repeat left center
 }
 
-.pingl {
+.likes {
     background: url(../images/like.jpg) no-repeat left center
 }
 
@@ -929,7 +929,7 @@ h3.blogtitle:hover a {
 .shang_box {
     width: 430px;
     padding: 40px 10px;
-    background: #fff url(../images/tbg.jpg) no-repeat left top 30px;;
+    background: #fff no-repeat left top 30px;;
     border-radius: 10px;
     position: fixed;
     z-index: 1000;
