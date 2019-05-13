@@ -40,13 +40,11 @@
 
     <div class="container">
         <ul id="partial-view">
-            {% if images %}
-                {% for image in images %}
-                    <li>
-                        <img src="{{ image.img.url }}"/>
-                    </li>
-                {% endfor %}
-            {% else %}
+            {% for image in images %}
+                <li>
+                    <img src="{{ image.img.url }}"/>
+                </li>
+            {% empty %}
                 <li>
                     <img src="{% static 'images/img_01.jpg' %}"/>
                 </li>
@@ -62,7 +60,7 @@
                 <li>
                     <img src="{% static 'images/img_05.jpg' %}"/>
                 </li>
-            {% endif %}
+            {% endfor %}
         </ul>
         <!--
         <button id="prev">Prev</button>
@@ -189,60 +187,10 @@
 
 <!-- 排行 -->
 {% block paihang %}
-    <div class="paihang">
-        <h2 class="ab_title"><p>博客分类</p></h2>
-        {% get_categories as category_list %}
-        <ul class="news">
-            {% for category in category_list %}
-                <li>
-                    <a href="{% url 'blog:category' category.pk %}">{{ category.name }}
-                        (<span class="post-count" style="color: #00A000">{{ category.num_blogs }}</span>)
-                    </a>
-                </li>
-            {% empty %}
-                暂无分类！
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="paihang">
-        <h2 class="ab_title"><p>近期文章</p></h2>
-        {% get_recent_blogs as recent_blog_list %}
-        <ul class="news">
-            {% for blog in recent_blog_list %}
-                <li>
-                    <a href="{% url 'blog:detail' blog.pk %}">{{ blog.title }}</a>
-                </li>
-            {% empty %}
-                暂无文章！
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="paihang">
-        <h2 class="ab_title"><p>文章归档</p></h2>
-        {% get_archives as date_list %}
-        <ul class="news">
-            {% for date in date_list %}
-                <li>
-                    <a href="{% url 'blog:archives' date.year date.month %}">
-                        {{ date.year }} 年 {{ date.month }} 月
-                    </a>
-                </li>
-            {% empty %}
-                暂无归档！
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="paihang">
-        <h2 class="ab_title"><p>标签云</p></h2>
-        {% get_tags as tags_list %}
-        <ul class="tags">
-            {% for tag in tags_list %}
-                <span><a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a></span>
-            {% empty %}
-                暂无标签！
-            {% endfor %}
-        </ul>
-    </div>
+    {% include 'blog/blog_category.html' %}
+    {% include 'blog/recent_blogs.html' %}
+    {% include 'blog/archives.html' %}
+    {% include 'blog/tags.html' %}
 {% endblock %}
 
 <!-- 友情链接 -->
