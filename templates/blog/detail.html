@@ -23,6 +23,22 @@
                     {% for tag in blog.tag.all %}
                         <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a>
                     {% endfor %}
+                    <script type="text/javascript">
+                        $(function(){
+                            //random modify background of tags
+                            let obj=$(".tags a");
+                            let str='0123456789abcdef';
+                            let color='';
+
+                            for(let i=0;i<obj.length;i++){
+                                for(let j=0;j<6;j++){
+                                    color+=str.substr(parseInt(Math.random()*str.length),1);
+                                }
+                                $(obj[i]).css('background','#'+color);
+                                color='';
+                            }
+                        });
+                    </script>
                 </div>
                 <div class="news_infos">
                     {{ blog.content|safe }}
@@ -188,60 +204,14 @@
 
 <!-- 排行 -->
 {% block paihang %}
-    <div class="paihang">
-        <h2 class="ab_title"><p>博客分类</p></h2>
-        {% get_categories as category_list %}
-        <ul class="news">
-            {% for category in category_list %}
-                <li>
-                    <a href="{% url 'blog:category' category.pk %}">{{ category.name }}
-                        (<span class="post-count" style="color: #00A000">{{ category.num_blogs }}</span>)
-                    </a>
-                </li>
-            {% empty %}
-                暂无分类！
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="paihang">
-        <h2 class="ab_title"><p>近期文章</p></h2>
-        {% get_recent_blogs as recent_blog_list %}
-        <ul class="news">
-            {% for blog in recent_blog_list %}
-                <li>
-                    <a href="{% url 'blog:detail' blog.pk %}">{{ blog.title }}</a>
-                </li>
-            {% empty %}
-                暂无文章！
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="paihang">
-        <h2 class="ab_title"><p>文章归档</p></h2>
-        {% get_archives as date_list %}
-        <ul class="news">
-            {% for date in date_list %}
-                <li>
-                    <a href="{% url 'blog:archives' date.year date.month %}">
-                        {{ date.year }} 年 {{ date.month }} 月
-                    </a>
-                </li>
-            {% empty %}
-                暂无归档！
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="paihang">
-        <h2 class="ab_title"><p>标签云</p></h2>
-        {% get_tags as tags_list %}
-        <ul class="tags">
-            {% for tag in tags_list %}
-                <span><a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a></span>
-            {% empty %}
-                暂无标签！
-            {% endfor %}
-        </ul>
-    </div>
+    <!-- 博客分类 -->
+    {% include 'blog/blog_category.html' %}
+    <!-- 最近文章 -->
+    {% include 'blog/recent_blogs.html' %}
+    <!-- 归档 -->
+    {% include 'blog/archives.html' %}
+    <!-- 标签云 -->
+    {% include 'blog/tags.html' %}
 {% endblock %}
 
 <!-- 友情链接 -->
