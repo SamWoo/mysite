@@ -24,57 +24,33 @@ body a:focus {
     text-decoration: none;
 }
 
-/*-- banner --*/
-.w3ls-banner {
-    /*background: url(../images/1.jpg) no-repeat center 0px;*/
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    position: relative;
-}
-
-/*-- banner --*/
-.banner {
-    position: relative;
-}
-
-.banner-w3lsinfo {
-    padding: 3em 0 7.2em;
-    min-height: 600px;
-}
-
-.header-w3left {
-    width: 25%;
-    float: left;
-    margin: 0 8px;
-    overflow: hidden;
-}
-
-.header-w3right {
-    width: 70%;
-    float: right;
-    padding-left: 12px;
-    overflow: hidden;
-}
-
-.header-imgtext-w3ls {
-    text-align: center;
-    padding: 1.5em 1em;
-}
-
-/*分隔线*/
-.diver {
-    float: left;
-    margin: 10px;
-    width: 1px;
-    height: 500px;
-    background: darkgray;
-}
-
-/*图片展示*/
-.header-w3left img {
+/*左边*/
+.left {
+    width: 30%;
     margin: 10px auto;
-    overflow: hidden;
+    float: left;
+    border-radius: 8px;
+    background: white;
+}
+
+/*右边*/
+.right {
+    width: 68%;
+    margin: 10px auto 80px auto;
+    float: right;
+    border-radius: 8px;
+    background: white;
+}
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+    margin: 10px auto;
+    color: orangered;
+    border-bottom: 1px darkorange dashed
 }
 
 .img-thumbnail {
@@ -94,83 +70,86 @@ body a:focus {
     border-color: #2e6da4;
 }
 
+/*修改信息按钮*/
+.btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+/*返回*/
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
 .btn-lg,
 .btn {
+    margin: 4px;
     padding: 10px 16px;
     font-size: 14px;
     line-height: 1.3333333;
     border-radius: 4px;
 }
 
-.header-w3left h1 {
-    font-size: 3em;
-    color: royalblue;
-    font-family: "Microsoft YaHei", sans-serif;
+.form-horizontal {
+    display: table;
+    content: " ";
 }
 
-h3.agileits-title {
-    font-size: 2em;
-    color: royalblue;
-    border-bottom: 1px dashed #757575;
-    padding-bottom: .5em;
-    text-transform: uppercase;
-    margin-bottom: 1.0em;
-}
-
-.profile-grids {
-    text-align: center;
-    margin: 48px 20px;
-    float: left
-}
-
-ul.address li {
+.form-control {
     display: block;
-    font-size: 0.9em;
-    color: #000;
-    margin-top: 1em;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-ul.address li a {
-    color: #000;
-    text-decoration: none;
+.form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
 }
 
-ul.address li a:hover {
-    color: #f98900;
+.form-control::-moz-placeholder {
+    color: #999;
+    opacity: 1;
 }
 
-.profile-grids i.fa {
-    font-size: 1.5em;
-    color: #f98900;
-    border: 1px solid;
-    padding: .5em;
-    border-radius: 15px 0;
+.form-control:-ms-input-placeholder {
+    color: #999;
 }
 
-.profile-grids h5 {
-    font-size: 1.5em;
-    color: #f78800;
-    margin: 1em 0;
+.form-control::-webkit-input-placeholder {
+    color: #999;
 }
 
-/*-- //banner-top --*/
-/*-- social-wthree-icons --*/
-.social-wthree-icons ul {
-    margin-top: 1.5em;
-}
-
-.social-wthree-icons ul li {
-    display: inline-block;
-    font-size: inherit;
-    text-align: center;
-    margin: 0;
-}
-
-.social-wthree-icons ul li a.fa {
-    font-size: 1em;
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
     color: #fff;
-    line-height: 2.6em;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
 }
+
 
 .icon-border {
     position: relative;
@@ -272,191 +251,46 @@ ul.address li a:hover {
     box-shadow: inset 0 0 0 2px #ec4a89;
 }
 
-/*-- //social-wthree-icons --*/
-
-/*-- input-effect --*/
-::-webkit-input-placeholder {
-    color: #fff !important;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-    color: #fff !important;
-}
-
-::-moz-placeholder { /* Firefox 19+ */
-    color: #fff !important;
-}
-
-:-ms-input-placeholder {
-    color: #fff !important;
-}
-
-/*-- //contact --*/
 
 /*-- responsive-design --*/
 @media (max-width: 1366px) {
-    .banner-w3lsinfo {
-        padding: 2em 0 7em;
-    }
+
 }
 
 @media (max-width: 1080px) {
-    .banner h2 {
-        font-size: 3.5em;
-        margin-bottom: 1.2em;
-    }
 
-    h3.agileits-title {
-        font-size: 1.8em;
-        margin-bottom: 0.8em;
-    }
-
-    .header-w3right {
-        padding-left: 1em;
-    }
-
-    .profile-grids {
-        margin-top: 2em;
-        padding: 0 .5em;
-    }
 }
 
 @media (max-width: 991px) {
-    .header-w3left {
-        width: 50%;
-        margin: 0 auto;
-    }
 
-    .header-w3left h1 {
-        font-size: 1.8em;
-    }
-
-    .social-wthree-icons ul {
-        margin-top: 0.8em;
-    }
-
-    .header-w3right {
-        margin-top: 3em;
-    }
-
-    .banner h2 {
-        font-size: 3em;
-        margin-bottom: 1em;
-    }
-
-    .banner-w3lsinfo {
-        padding: 2em 0 6em;
-    }
 }
 
 @media (max-width: 736px) {
-    .header-w3left {
-        width: 40%;
-    }
+
 }
 
 @media (max-width: 640px) {
-    .banner h2 {
-        font-size: 2.8em;
-        margin-bottom: 0.8em;
-    }
 
-    .header-w3left {
-        width: 50%;
-    }
-
-    h3.agileits-title {
-        font-size: 1.6em;
-    }
 }
 
 @media (max-width: 600px) {
-    .profile-grids {
-        float: none;
-        width: 100%;
-    }
 
-    .profile-grids h5 {
-        font-size: 1.3em;
-        margin: 0.5em 0;
-    }
 }
 
 @media (max-width: 480px) {
-    .banner h2 {
-        font-size: 2.6em;
-    }
 
-    .banner-w3lsinfo {
-        padding: 1.5em 0 5em;
-    }
-
-    .header-w3left {
-        width: 65%;
-    }
-
-    .header-w3left h1 {
-        font-size: 1.6em;
-    }
 }
 
 @media (max-width: 414px) {
-    p {
-        font-size: 0.9em;
-    }
 
-    .profile-grids i.fa {
-        font-size: 1.2em;
-        padding: .7em;
-    }
 }
 
 @media (max-width: 384px) {
-    .banner h2 {
-        font-size: 2.2em;
-    }
 
-    .header-w3left {
-        width: 80%;
-    }
-
-    .header-w3right {
-        padding: 0;
-    }
-
-    h3.agileits-title {
-        font-size: 1.4em;
-    }
 }
 
 @media (max-width: 320px) {
-    .banner-w3lsinfo {
-        padding: 1.2em 0 4em;
-    }
 
-    .header-w3left {
-        width: 95%;
-    }
-
-    .header-imgtext-w3ls {
-        border: 1px solid #fff;
-        text-align: center;
-        padding: 1em;
-    }
-
-    .profile-grids i.fa {
-        font-size: 1em;
-        padding: .7em 0.8em;
-    }
-
-    .profile-grids {
-        margin-top: 1.5em;
-    }
-
-    ul.address li {
-        font-size: 0.85em;
-        margin-top: 0.5em;
-    }
 }
 
 /*-- //responsive-design --*/

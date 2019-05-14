@@ -1,10 +1,12 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+
 from user.forms import RegisterForm
 from user.models import Profile, UserInfo
 
@@ -54,17 +56,60 @@ def profile(requset):
 
 
 @login_required(login_url='/login/')
+@csrf_exempt
 def myself(request):
     user = User.objects.get(username=request.user.username)
     userprofile = Profile.objects.get(user=user)
     userinfo = UserInfo.objects.get(user=user)
-    context = {
-        "user": user,
-        "userprofile": userprofile,
-        "userinfo": userinfo
-    }
-    # print('img-->{}'.format(userprofile.img))
-    return render(request, 'user/myself.html', context=context)
+
+    if request.method == "POST":
+        print(request.POST)
+        action = request.POST.get('action')
+        if action == '0':
+            nickname = userinfo.nickname
+            phone = userinfo.phone
+            email = user.email
+            address = userinfo.address
+            career = userinfo.profession
+            birthday = userinfo.birthday
+
+            data = {
+                'nickname': nickname,
+                'phone': phone,
+                'email': email,
+                'address': address,
+                'career': career,
+                'birthday': birthday,
+            }
+            return JsonResponse(data=data)
+        elif action == '1':
+            nickname = request.POST.get('nickname')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            address = request.POST.get('address')
+            career = request.POST.get('career')
+            birthday = request.POST.get('birthday')
+            if all([nickname, phone, email, address, career, birthday]):
+                UserInfo.objects.filter(user=user).update(nickname=nickname, phone=phone, address=address,
+                                                          profession=career, birthday=birthday)
+                User.objects.filter(username=request.user.username).update(email=email)
+                data = {
+                    'status': 0,
+                }
+            else:
+                data = {
+                    'status': 1,
+                }
+            return JsonResponse(data=data)
+
+    else:
+        context = {
+            "user": user,
+            "userprofile": userprofile,
+            "userinfo": userinfo
+        }
+        # print('img-->{}'.format(userprofile.img))
+        return render(request, 'user/myself.html', context=context)
 
 
 @login_required(login_url='/login/')

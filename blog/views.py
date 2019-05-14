@@ -1,11 +1,9 @@
 # -*-coding:utf-8-*-
 import datetime
 import json
-import os
 import random
 
 import markdown
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
